@@ -1275,8 +1275,8 @@
       var btn = document.getElementById("t-" + t);
       var pan = document.getElementById("s-" + t);
       var on = (t === name);
-      btn.setAttribute("aria-selected", String(on));
-      pan.hidden = !on;
+      if (btn) btn.setAttribute("aria-selected", String(on));
+      if (pan) pan.hidden = !on;
     });
     try { localStorage.setItem("bsl-tab", name); } catch (e) {}
     window.scrollTo(0, 0);
@@ -1572,10 +1572,12 @@
 
   var mi = document.getElementById("m-internal"), mc = document.getElementById("m-client");
   function mode(client) {
-    mi.setAttribute("aria-pressed", String(!client));
-    mc.setAttribute("aria-pressed", String(client));
-    document.getElementById("panel-internal").hidden = client;
-    document.getElementById("panel-client").hidden = !client;
+    if (mi) mi.setAttribute("aria-pressed", String(!client));
+    if (mc) mc.setAttribute("aria-pressed", String(client));
+    var pi = document.getElementById("panel-internal");
+    var pc = document.getElementById("panel-client");
+    if (pi) pi.hidden = client;
+    if (pc) pc.hidden = !client;
   }
   mi.addEventListener("click", function () { mode(false); });
   mc.addEventListener("click", function () { mode(true); });
@@ -1703,8 +1705,10 @@
       });
     }
     var b = el("n-badge");
-    b.textContent = String(notes.length);
-    b.hidden = notes.length === 0;
+    if (b) {
+      b.textContent = String(notes.length);
+      b.hidden = notes.length === 0;
+    }
   }
 
   function setKind(k) {
@@ -1714,8 +1718,10 @@
   }
 
   function open(on) {
-    el("n-sheet").hidden = !on;
-    el("n-backdrop").hidden = !on;
+    var sheet = el("n-sheet"), back = el("n-backdrop");
+    if (!sheet || !back) return;
+    sheet.hidden = !on;
+    back.hidden = !on;
     try { document.body.style.overflow = on ? "hidden" : ""; } catch (e) {}
     if (on) {
       render();
