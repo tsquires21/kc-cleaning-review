@@ -1,0 +1,1677 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="color-scheme" content="light dark">
+<title>The Blue Springs Ledger</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+
+<style>
+  :root {
+    --paper:#F7F5F1; --surface:#FFFDFA; --surface-2:#EFECE5;
+    --ink:#16202B; --ink-soft:#46535F; --ink-faint:#78848E;
+    --rule:#D6D1C7; --rule-soft:#E5E1D8;
+    --ledger:#1B6B4C; --ledger-bg:#E3EFE7; --on-ledger:#FFFDFA;
+    --amber:#9A6318; --amber-bg:#F5E9D6;
+    --red:#A63A2E;   --red-bg:#F6E3DF;
+    --shadow:0 1px 2px rgba(22,32,43,.06), 0 8px 24px rgba(22,32,43,.05);
+    --bar:rgba(247,245,241,.94);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper:#12171C; --surface:#1A2027; --surface-2:#232B33;
+      --ink:#E8E6E1; --ink-soft:#AAB4BC; --ink-faint:#7C868E;
+      --rule:#333C45; --rule-soft:#262E36;
+      --ledger:#6DC49B; --ledger-bg:#17362A; --on-ledger:#0F1A15;
+      --amber:#E0A857; --amber-bg:#382A16;
+      --red:#E8887A;   --red-bg:#3A211D;
+      --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.3);
+      --bar:rgba(18,23,28,.94);
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper:#12171C; --surface:#1A2027; --surface-2:#232B33;
+    --ink:#E8E6E1; --ink-soft:#AAB4BC; --ink-faint:#7C868E;
+    --rule:#333C45; --rule-soft:#262E36;
+    --ledger:#6DC49B; --ledger-bg:#17362A; --on-ledger:#0F1A15;
+    --amber:#E0A857; --amber-bg:#382A16;
+    --red:#E8887A;   --red-bg:#3A211D;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.3);
+    --bar:rgba(18,23,28,.94);
+  }
+
+  * { box-sizing:border-box; }
+  body {
+    background:var(--paper); color:var(--ink);
+    font-family:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    font-size:16px; line-height:1.58; -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  .wrap { max-width:1000px; margin:0 auto; padding:0 clamp(14px,4vw,32px); }
+  p { margin:0 0 12px; }
+  p:last-child { margin-bottom:0; }
+  .measure { max-width:62ch; }
+  b, strong { font-weight:600; }
+
+  /* ---------- masthead ---------- */
+  header.mast { padding:clamp(20px,5vw,38px) 0 clamp(15px,3vw,20px); }
+  .eyebrow { font-family:"IBM Plex Mono",monospace; font-size:10.5px; font-weight:500;
+    letter-spacing:.16em; text-transform:uppercase; color:var(--ink-faint); }
+  h1 { font-family:Newsreader,Georgia,serif; font-weight:500;
+    font-size:clamp(30px,7.5vw,50px); line-height:1.04; letter-spacing:-.018em;
+    text-wrap:balance; margin:9px 0 0; }
+  .standfirst { font-family:Newsreader,Georgia,serif; font-size:clamp(16px,2.2vw,19px);
+    line-height:1.45; color:var(--ink-soft); max-width:48ch; margin:10px 0 0; font-style:italic; }
+
+  /* ---------- sticky tab bar ---------- */
+  .bar { position:sticky; top:0; z-index:50; background:var(--bar);
+    -webkit-backdrop-filter:saturate(180%) blur(12px); backdrop-filter:saturate(180%) blur(12px);
+    border-bottom:1px solid var(--rule); }
+  .barin { max-width:1000px; margin:0 auto; display:flex; align-items:stretch; gap:16px;
+    padding:0 clamp(14px,4vw,32px); }
+  .mark { display:none; font-family:Newsreader,Georgia,serif; font-size:16px; font-weight:600;
+    align-self:center; white-space:nowrap; letter-spacing:-.01em; }
+  .mark em { color:var(--ledger); font-style:normal; }
+  .tabs { display:flex; overflow-x:auto; scrollbar-width:none; -ms-overflow-style:none;
+    scroll-snap-type:x proximity; flex:1; }
+  .tabs::-webkit-scrollbar { display:none; }
+  .tab { scroll-snap-align:center; flex:0 0 auto; appearance:none; background:none;
+    border:0; border-bottom:2px solid transparent; cursor:pointer; color:var(--ink-faint);
+    font-family:"IBM Plex Mono",monospace; font-size:11.5px; font-weight:600;
+    letter-spacing:.09em; text-transform:uppercase; padding:15px 13px 13px; white-space:nowrap;
+    transition:color .15s, border-color .15s; }
+  .tab:hover { color:var(--ink-soft); }
+  .tab[aria-selected="true"] { color:var(--ledger); border-bottom-color:var(--ledger); }
+  .tab:focus-visible { outline:2px solid var(--amber); outline-offset:-4px; border-radius:2px; }
+  @media (min-width:640px) { .mark { display:block; } .tab { padding:16px 15px 14px; font-size:12px; } }
+
+  /* ---------- screens ---------- */
+  main { padding-bottom:70px; }
+  .screen { padding-top:clamp(20px,4vw,30px); }
+  .screen[hidden] { display:none !important; }
+  .stitle { display:flex; align-items:baseline; gap:11px; border-bottom:1px solid var(--ink);
+    padding-bottom:7px; margin:0 0 16px; }
+  .sletter { font-family:"IBM Plex Mono",monospace; font-size:11.5px; font-weight:600;
+    color:var(--ledger); letter-spacing:.07em; }
+  h2 { font-family:Newsreader,Georgia,serif; font-size:clamp(23px,4.6vw,30px);
+    font-weight:500; letter-spacing:-.012em; margin:0; line-height:1.14; text-wrap:balance; }
+  .lede { font-family:Newsreader,Georgia,serif; font-size:clamp(16.5px,2.4vw,19px);
+    line-height:1.45; color:var(--ink-soft); max-width:54ch; margin:0 0 20px; }
+  h3 { font-family:"IBM Plex Mono",monospace; font-size:10.5px; letter-spacing:.13em;
+    text-transform:uppercase; color:var(--ink-faint); font-weight:600;
+    margin:28px 0 11px; padding-bottom:6px; border-bottom:1px solid var(--rule-soft); }
+
+  /* ---------- cards & stacks ---------- */
+  .stack { display:flex; flex-direction:column; gap:14px; }
+  .card { background:var(--surface); border:1px solid var(--rule); border-radius:4px;
+    padding:clamp(16px,3.5vw,22px); box-shadow:var(--shadow); }
+  .card > h3:first-child { margin-top:0; }
+  .card.lead { border-left:5px solid var(--amber); }
+  .kicker { font-family:"IBM Plex Mono",monospace; font-size:10px; letter-spacing:.13em;
+    text-transform:uppercase; font-weight:600; color:var(--ink-faint); display:block; margin-bottom:8px; }
+  .kicker.gr { color:var(--ledger); } .kicker.am { color:var(--amber); } .kicker.rd { color:var(--red); }
+  .verdict-word { font-family:Newsreader,Georgia,serif; font-size:clamp(28px,6.5vw,40px);
+    font-weight:600; line-height:1; color:var(--amber); letter-spacing:-.02em; display:block; margin-bottom:11px; }
+
+  /* headline number grid */
+  .hgrid { display:grid; gap:1px; background:var(--rule); border:1px solid var(--rule);
+    border-radius:4px; overflow:hidden; grid-template-columns:1fr; }
+  @media (min-width:560px) { .hgrid { grid-template-columns:1fr 1fr; } }
+  @media (min-width:880px) { .hgrid.three { grid-template-columns:repeat(3,1fr); } }
+  .hcell { background:var(--surface); padding:17px 18px; }
+  .hcell.alt { background:var(--ledger-bg); }
+  .hk { font-family:"IBM Plex Mono",monospace; font-size:10px; letter-spacing:.11em;
+    text-transform:uppercase; color:var(--ink-faint); display:block; margin-bottom:8px; }
+  .hcell.alt .hk { color:var(--ledger); }
+  .hv { font-family:"IBM Plex Mono",monospace; font-size:clamp(26px,7vw,32px);
+    font-weight:600; font-variant-numeric:tabular-nums; line-height:1; letter-spacing:-.02em; display:block; }
+  .hcell.alt .hv { color:var(--ledger); }
+  .hv.words { font-family:"IBM Plex Sans",sans-serif; font-size:15px; font-weight:600;
+    line-height:1.45; letter-spacing:0; }
+  .hn { font-size:12.5px; color:var(--ink-faint); margin:7px 0 0; line-height:1.4; }
+
+  /* ---------- markup rows ---------- */
+  .mrow { display:grid; grid-template-columns:36px 1fr; gap:0 12px;
+    padding:13px 0; border-top:1px solid var(--rule-soft); align-items:start; }
+  .mrow:first-child { border-top:1px solid var(--ink); }
+  .msec { font-family:"IBM Plex Mono",monospace; font-size:12px; font-weight:600;
+    color:var(--ink-faint); padding-top:2px; font-variant-numeric:tabular-nums; }
+  .mtitle { display:flex; flex-wrap:wrap; align-items:baseline; gap:8px; margin-bottom:3px; }
+  .mname { font-weight:600; font-size:15px; }
+  .chip { font-family:"IBM Plex Mono",monospace; font-size:9px; letter-spacing:.09em;
+    text-transform:uppercase; padding:2px 6px; border-radius:2px; font-weight:600; white-space:nowrap; }
+  .chip.keep { background:var(--ledger-bg); color:var(--ledger); }
+  .chip.fix  { background:var(--amber-bg); color:var(--amber); }
+  .chip.stop { background:var(--red-bg); color:var(--red); }
+  .chip.later{ background:var(--surface-2); color:var(--ink-faint); }
+  .mnote { font-size:14px; color:var(--ink-soft); margin:0; line-height:1.5; }
+  .mnote b { color:var(--ink); }
+
+  /* ---------- tables ---------- */
+  .tablewrap { overflow-x:auto; -webkit-overflow-scrolling:touch;
+    border:1px solid var(--rule); border-radius:4px; background:var(--surface); }
+  table { width:100%; border-collapse:collapse; font-size:13.5px;
+    font-family:"IBM Plex Mono",monospace; font-variant-numeric:tabular-nums; min-width:460px; }
+  th { text-align:left; font-weight:600; font-size:10px; letter-spacing:.08em;
+    text-transform:uppercase; color:var(--ink-faint); padding:9px 12px; border-bottom:1px solid var(--ink); }
+  td { padding:7px 12px; border-bottom:1px solid var(--rule-soft); }
+  tr:last-child td { border-bottom:0; }
+  td.num, th.num { text-align:right; }
+  td.lbl { font-family:"IBM Plex Sans",sans-serif; }
+  tr.total td { border-top:1px solid var(--ink); font-weight:600; }
+  td.bad { color:var(--red); font-weight:600; }
+  td.good { color:var(--ledger); font-weight:600; }
+  td.grp { font-family:"IBM Plex Sans",sans-serif; font-weight:600; font-size:12px; }
+  .fnote { font-size:12.5px; color:var(--ink-faint); margin:9px 0 0; line-height:1.45; }
+  .scrollhint { font-family:"IBM Plex Mono",monospace; font-size:9.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--ink-faint); margin:0 0 6px; }
+  @media (min-width:700px) { .scrollhint { display:none; } }
+
+  /* ---------- callouts ---------- */
+  .callout { border-left:3px solid var(--amber); background:var(--amber-bg);
+    padding:14px 16px; border-radius:0 4px 4px 0; }
+  .callout.good { border-left-color:var(--ledger); background:var(--ledger-bg); }
+  .callout.bad  { border-left-color:var(--red); background:var(--red-bg); }
+  .callout p { font-size:14.5px; }
+  .callout .kicker { color:var(--amber); }
+  .callout.good .kicker { color:var(--ledger); }
+  .callout.bad .kicker { color:var(--red); }
+
+  /* ---------- calculator ---------- */
+  .calcgrid { display:grid; gap:14px; grid-template-columns:1fr; align-items:start; }
+  @media (min-width:900px) { .calcgrid { grid-template-columns:minmax(0,1fr) minmax(0,1fr); } }
+  .presets { display:flex; flex-wrap:wrap; gap:7px; align-items:center; margin-bottom:14px; }
+  .plabel { font-family:"IBM Plex Mono",monospace; font-size:10px; letter-spacing:.12em;
+    text-transform:uppercase; color:var(--ink-faint); margin-right:2px; }
+  .pre { appearance:none; font-family:"IBM Plex Mono",monospace; font-size:11.5px; font-weight:600;
+    letter-spacing:.04em; padding:10px 14px; border-radius:3px; cursor:pointer;
+    border:1px solid var(--rule); background:var(--surface); color:var(--ink-soft); }
+  .pre[aria-pressed="true"] { background:var(--ledger); border-color:var(--ledger); color:var(--on-ledger); }
+  .pre:focus-visible { outline:2px solid var(--amber); outline-offset:2px; }
+
+  .knob { padding:3px 0 1px; }
+  .knobtop { display:flex; justify-content:space-between; align-items:baseline; gap:10px; }
+  .knobtop label { font-size:13.5px; color:var(--ink-soft); }
+  .knobval { font-family:"IBM Plex Mono",monospace; font-size:13.5px; font-weight:600;
+    font-variant-numeric:tabular-nums; color:var(--ink); white-space:nowrap; }
+  .knobhint { font-size:11.5px; color:var(--ink-faint); margin:0; }
+  input[type=range] { -webkit-appearance:none; appearance:none; width:100%; height:38px;
+    background:transparent; margin:0; display:block; cursor:pointer; }
+  input[type=range]::-webkit-slider-runnable-track { height:6px; border-radius:3px;
+    background:var(--surface-2); border:1px solid var(--rule); }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance:none; width:28px; height:28px;
+    border-radius:50%; background:var(--ledger); border:3px solid var(--surface);
+    box-shadow:0 1px 4px rgba(0,0,0,.28); margin-top:-12px; }
+  input[type=range]::-moz-range-track { height:6px; border-radius:3px;
+    background:var(--surface-2); border:1px solid var(--rule); }
+  input[type=range]::-moz-range-thumb { width:24px; height:24px; border-radius:50%;
+    background:var(--ledger); border:3px solid var(--surface); box-shadow:0 1px 4px rgba(0,0,0,.28); }
+  input[type=range]:focus-visible::-webkit-slider-thumb { outline:2px solid var(--amber); outline-offset:2px; }
+  input[type=range]:focus-visible::-moz-range-thumb { outline:2px solid var(--amber); outline-offset:2px; }
+
+  .roline { display:flex; justify-content:space-between; align-items:baseline; gap:12px;
+    padding:8px 0; border-bottom:1px solid var(--rule-soft); }
+  .roline:last-child { border-bottom:0; }
+  .rk { font-size:13.5px; color:var(--ink-soft); }
+  .rv { font-family:"IBM Plex Mono",monospace; font-size:14px; font-weight:600;
+    font-variant-numeric:tabular-nums; white-space:nowrap; text-align:right; }
+  .rv.good { color:var(--ledger); } .rv.warn { color:var(--amber); } .rv.bad { color:var(--red); }
+
+  .bignum { text-align:center; padding:4px 0 13px; border-bottom:1px solid var(--rule-soft); margin-bottom:5px; }
+  .bk { font-family:"IBM Plex Mono",monospace; font-size:10px; letter-spacing:.12em;
+    text-transform:uppercase; color:var(--ink-faint); display:block; margin-bottom:8px; }
+  .bv { font-family:"IBM Plex Mono",monospace; font-size:clamp(40px,11vw,54px); font-weight:600;
+    line-height:1; letter-spacing:-.03em; font-variant-numeric:tabular-nums; display:block; }
+  .bsub { font-size:12.5px; color:var(--ink-faint); margin:9px 0 0; line-height:1.4; }
+  .verdictline { margin-top:12px; padding:11px 13px; border-radius:3px; font-size:13.5px; line-height:1.45; }
+  .verdictline.ok { background:var(--ledger-bg); color:var(--ledger); }
+  .verdictline.no { background:var(--red-bg); color:var(--red); }
+
+  /* segmented view toggle */
+  .segwrap { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:13px; }
+  .seg { display:inline-flex; border:1px solid var(--rule); border-radius:3px; overflow:hidden; }
+  .seg button { appearance:none; border:0; background:var(--surface); color:var(--ink-soft);
+    font-family:"IBM Plex Mono",monospace; font-size:11px; font-weight:600; letter-spacing:.06em;
+    text-transform:uppercase; padding:10px 14px; cursor:pointer; }
+  .seg button + button { border-left:1px solid var(--rule); }
+  .seg button[aria-pressed="true"] { background:var(--ink); color:var(--paper); }
+  .seg button:focus-visible { outline:2px solid var(--amber); outline-offset:-3px; }
+
+  .quote { font-family:Newsreader,Georgia,serif; font-style:italic; font-size:15.5px;
+    line-height:1.45; color:var(--ink); border-left:3px solid var(--rule); padding:2px 0 2px 14px; margin:0; }
+  .qsrc { font-family:"IBM Plex Mono",monospace; font-size:10.5px; letter-spacing:.05em;
+    color:var(--ink-faint); display:block; margin-top:7px; font-style:normal; }
+  .rating { color:var(--red); font-weight:600; }
+
+  .steps { display:flex; flex-direction:column; gap:0; }
+  .step { display:grid; grid-template-columns:26px 1fr; gap:0 12px; padding:13px 0;
+    border-top:1px solid var(--rule-soft); }
+  .step:first-child { border-top:0; padding-top:2px; }
+  .stepn { font-family:"IBM Plex Mono",monospace; font-size:13px; font-weight:600; color:var(--ledger); }
+  .steph { font-weight:600; font-size:15px; margin:0 0 3px; }
+  .stepb { font-size:14px; color:var(--ink-soft); margin:0; line-height:1.5; }
+
+  footer { border-top:1px solid var(--rule); padding:20px 0 40px; font-size:12px;
+    color:var(--ink-faint); line-height:1.55; }
+
+  @media (prefers-reduced-motion: reduce) { * { transition:none !important; animation:none !important; } }
+  html { -webkit-text-size-adjust:100%; }
+  body { margin:0; }
+  img { max-width:100%; }
+  [hidden] { display:none !important; }
+
+  /* ---------- notes panel ---------- */
+  .fab { position:fixed; right:16px; bottom:16px; z-index:80; width:58px; height:58px;
+    border-radius:50%; border:0; background:var(--ledger); color:var(--on-ledger);
+    box-shadow:0 4px 18px rgba(0,0,0,.30); cursor:pointer;
+    font-family:"IBM Plex Mono",monospace; font-size:10px; font-weight:600; letter-spacing:.08em; }
+  .fab:focus-visible { outline:3px solid var(--amber); outline-offset:3px; }
+  .fab .badge { position:absolute; top:-3px; right:-3px; min-width:23px; height:23px;
+    border-radius:12px; background:var(--amber); color:#FFFDFA; font-size:11.5px; font-weight:600;
+    line-height:19px; padding:0 6px; border:2px solid var(--paper); }
+
+  .nbackdrop { position:fixed; inset:0; background:rgba(0,0,0,.45); z-index:90; }
+  .nsheet { position:fixed; z-index:91; background:var(--paper); border:1px solid var(--rule);
+    display:flex; flex-direction:column; max-width:100%; }
+  @media (max-width:719px) {
+    .nsheet { left:0; right:0; bottom:0; max-height:88vh; border-radius:14px 14px 0 0; border-bottom:0; }
+  }
+  @media (min-width:720px) {
+    .nsheet { top:0; right:0; bottom:0; width:430px; }
+  }
+  .nhead { display:flex; align-items:flex-start; gap:12px; padding:16px 16px 12px;
+    border-bottom:1px solid var(--rule); }
+  .ntitle { font-family:Newsreader,Georgia,serif; font-size:20px; font-weight:600; line-height:1.15; }
+  .nsub { font-size:12px; color:var(--ink-faint); margin:4px 0 0; line-height:1.4; }
+  .nclose { margin-left:auto; flex:0 0 auto; width:38px; height:38px; border-radius:19px;
+    border:1px solid var(--rule); background:var(--surface); color:var(--ink); font-size:22px;
+    line-height:1; cursor:pointer; }
+  .nclose:focus-visible { outline:2px solid var(--amber); outline-offset:2px; }
+  .nbody { overflow-y:auto; -webkit-overflow-scrolling:touch; padding:14px 16px; flex:1; }
+  .ncompose textarea { width:100%; font-family:"IBM Plex Sans",sans-serif; font-size:16px;
+    line-height:1.5; color:var(--ink); background:var(--surface); border:1px solid var(--rule);
+    border-radius:4px; padding:11px 12px; resize:vertical; }
+  .ncompose textarea:focus-visible { outline:2px solid var(--ledger); outline-offset:1px; }
+  .nrow { display:flex; align-items:center; gap:10px; margin-top:10px; flex-wrap:wrap; }
+  .nadd { margin-left:auto; appearance:none; border:0; background:var(--ledger);
+    color:var(--on-ledger); font-family:"IBM Plex Mono",monospace; font-size:12px; font-weight:600;
+    letter-spacing:.06em; text-transform:uppercase; padding:11px 20px; border-radius:3px; cursor:pointer; }
+  .nadd:focus-visible { outline:2px solid var(--amber); outline-offset:2px; }
+  .nnote { font-size:11.5px; color:var(--ink-faint); margin:10px 0 0; line-height:1.45; }
+  .nlist { margin-top:18px; display:flex; flex-direction:column; gap:10px; }
+  .nempty { font-size:13.5px; color:var(--ink-faint); text-align:center; padding:22px 0; margin:0; }
+  .nitem { background:var(--surface); border:1px solid var(--rule); border-radius:4px; padding:11px 12px; }
+  .nitem.prompt { border-left:4px solid var(--amber); }
+  .nmeta { display:flex; align-items:center; gap:8px; margin-bottom:6px; flex-wrap:wrap; }
+  .ntag { font-family:"IBM Plex Mono",monospace; font-size:9px; letter-spacing:.09em;
+    text-transform:uppercase; font-weight:600; padding:2px 6px; border-radius:2px;
+    background:var(--surface-2); color:var(--ink-faint); }
+  .ntag.p { background:var(--amber-bg); color:var(--amber); }
+  .nwhen { font-size:11px; color:var(--ink-faint); }
+  .ndel { margin-left:auto; appearance:none; border:0; background:none; color:var(--ink-faint);
+    font-size:17px; line-height:1; cursor:pointer; padding:2px 4px; }
+  .ndel:hover { color:var(--red); }
+  .ndel:focus-visible { outline:2px solid var(--amber); outline-offset:1px; }
+  .ntext { font-size:14.5px; line-height:1.5; white-space:pre-wrap; word-wrap:break-word; margin:0; }
+  .nfoot { display:flex; gap:10px; padding:12px 16px; border-top:1px solid var(--rule);
+    background:var(--surface); }
+  .nbtn { flex:1; appearance:none; border:1px solid var(--rule); background:var(--paper);
+    color:var(--ink); font-family:"IBM Plex Mono",monospace; font-size:11.5px; font-weight:600;
+    letter-spacing:.06em; text-transform:uppercase; padding:13px 10px; border-radius:3px; cursor:pointer; }
+  .nbtn.danger { color:var(--red); }
+  .nbtn:focus-visible { outline:2px solid var(--amber); outline-offset:2px; }
+  .nbtn.done { background:var(--ledger); border-color:var(--ledger); color:var(--on-ledger); }
+
+  /* more-tabs affordance */
+  .bar::after { content:""; position:absolute; top:0; right:0; bottom:0; width:46px;
+    pointer-events:none; opacity:0; transition:opacity .18s;
+    background:linear-gradient(to right, rgba(255,255,255,0), var(--paper)); }
+  .bar.more::after { opacity:1; }
+  @media (prefers-reduced-motion: reduce) { .bar::after { transition:none; } }
+</style>
+</head>
+<body>
+
+<header class="mast">
+  <div class="wrap">
+    <div class="eyebrow">Working notes on the grill report &middot; for Kaleb &amp; Tim</div>
+    <h1>The Blue&nbsp;Springs Ledger</h1>
+    <p class="standfirst">A markup of the plan, the arithmetic behind it, and two calculators for working it out together.</p>
+  </div>
+</header>
+
+<div class="bar">
+  <div class="barin">
+    <div class="mark">Blue Springs <em>Ledger</em></div>
+    <div class="tabs" role="tablist" aria-label="Sections">
+      <button class="tab" role="tab" id="t-over" aria-controls="s-over" aria-selected="true">Overview</button>
+      <button class="tab" role="tab" id="t-markup" aria-controls="s-markup" aria-selected="false">Markup</button>
+      <button class="tab" role="tab" id="t-numbers" aria-controls="s-numbers" aria-selected="false">Numbers</button>
+      <button class="tab" role="tab" id="t-res" aria-controls="s-res" aria-selected="false">Residential</button>
+      <button class="tab" role="tab" id="t-comm" aria-controls="s-comm" aria-selected="false">Commercial</button>
+      <button class="tab" role="tab" id="t-edge" aria-controls="s-edge" aria-selected="false">Edge</button>
+    </div>
+  </div>
+</div>
+
+<main>
+
+<!-- ==================== OVERVIEW ==================== -->
+<section class="screen wrap" id="s-over" role="tabpanel" aria-labelledby="t-over">
+  <div class="stack">
+
+    <div class="card lead">
+      <span class="verdict-word">Nearly there</span>
+      <p>The plan is better than most pre-launch documents, and the markup says exactly where. The gap is arithmetic: six targets &mdash; the $150 minimum, the 40% labor pool, the $150 acquisition ceiling, the 15-customer quota, the $30k expansion gate and the $10k owner draw &mdash; sit in six different sections and were never multiplied against each other.</p>
+      <p>Multiplied out, <b>the plan as written needs about two and a half times the business it thinks it does.</b> Three free changes close nearly all of it.</p>
+    </div>
+
+    <div class="hgrid three">
+      <div class="hcell">
+        <span class="hk">As written, to reach $10k/mo</span>
+        <span class="hv">215</span>
+        <p class="hn">customers &middot; $70,000/mo &middot; ~20 cleaners</p>
+      </div>
+      <div class="hcell alt">
+        <span class="hk">With the three changes</span>
+        <span class="hv">86</span>
+        <p class="hn">customers &middot; $36,600/mo &middot; ~3 cleaners</p>
+      </div>
+      <div class="hcell">
+        <span class="hk">The three changes</span>
+        <span class="hv words">Price to market &middot; solo cleaners &middot; tighter map</span>
+        <p class="hn">None of them costs anything. See (A.4), (A.7), (A.8).</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>The two findings worth the whole review</h3>
+      <div class="steps">
+        <div class="step">
+          <span class="stepn">1</span>
+          <div>
+            <p class="steph">Point the sales seat at commercial</p>
+            <p class="stepb">Keeping a salesperson is the right instinct &mdash; the ticket is the problem, not the role. A residential customer pays a rep once, on ~$300. A commercial contract pays 15&ndash;40% of the first month <em>plus a 1&ndash;3% residual that keeps paying</em>. One contract carries the contribution of roughly <b>seven residential customers</b>. Residential stays the product; commercial is what can afford a commission. <b>Commercial</b> tab.</p>
+          </div>
+        </div>
+        <div class="step">
+          <span class="stepn">2</span>
+          <div>
+            <p class="steph">Guarantee the same cleaner. Nobody else does.</p>
+            <p class="stepb">Every franchise in the metro hedges it &mdash; "every effort, but illness, vacation and staff changes." It is the top complaint in their own reviews. Solo cleaners on a tight map is what makes an unhedged promise deliverable, which means the operational fix and the marketing hook are <b>the same decision</b>. <b>Edge</b> tab.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>The cheapest next 30 days</h3>
+      <p class="fnote" style="margin:0 0 12px;">Roughly $1,000 and a few evenings, before any entity, insurance or software spend. It replaces the three remaining guesses with facts.</p>
+      <div class="steps">
+        <div class="step">
+          <span class="stepn">1</span>
+          <div>
+            <p class="steph">Five competitor quotes</p>
+            <p class="stepb">On a real 2,000 sq ft Blue Springs home. Half an hour each. Settles pricing permanently.</p>
+          </div>
+        </div>
+        <div class="step">
+          <span class="stepn">2</span>
+          <div>
+            <p class="steph">Three paid customers, stopwatch on every job</p>
+            <p class="stepb">Subcontract flat-rate to an existing independent if needed. True job duration is the number every calculator here rests on.</p>
+          </div>
+        </div>
+        <div class="step">
+          <span class="stepn">3</span>
+          <div>
+            <p class="steph">Price Google Local Services in 64015</p>
+            <p class="stepb">Actual cost per booked lead. If residential comes in under $150 all-in, the residential half of the sales problem disappears on its own.</p>
+          </div>
+        </div>
+        <div class="step">
+          <span class="stepn">4</span>
+          <div>
+            <p class="steph">Two free decisions this week</p>
+            <p class="stepb">Set the salesperson's base pay before hiring anyone, and name a weekday dispatcher who is neither Kaleb nor a working cleaner.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ==================== A &mdash; MARKUP ==================== -->
+<section class="screen wrap" id="s-markup" role="tabpanel" aria-labelledby="t-markup" hidden>
+  <div class="stitle"><span class="sletter">A</span><h2>The document, section by section</h2></div>
+  <p class="lede">Twenty sections, twenty verdicts. Numbers match the grill report's own sections.</p>
+
+  <div class="mrow"><span class="msec">1</span><div>
+    <div class="mtitle"><span class="mname">The Problem</span><span class="chip keep">Keep</span></div>
+    <p class="mnote">The do-not-offer list and hazard screening at booking are better than most plans have. They prevent the jobs that lose money and hurt people.</p>
+  </div></div>
+
+  <div class="mrow"><span class="msec">2</span><div>
+    <div class="mtitle"><span class="mname">The Evidence</span><span class="chip fix">Now filled in</span></div>
+    <p class="mnote">Contained three restated assumptions, not evidence. Filled in with real KC numbers below &mdash; and the news is mostly <b>good</b>. The 40% pool is within two points of the industry benchmark, and retention is better than assumed.</p>
+  </div></div>
+
+  <div class="mrow"><span class="msec">3</span><div>
+    <div class="mtitle"><span class="mname">The Customer</span><span class="chip keep">Keep</span><span class="chip fix">One gap</span></div>
+    <p class="mnote">Biweekly-as-default is right. The free 24-hour re-clean collects $0 but still costs wages, burden and the lost slot &mdash; about <b>$125 each time</b>. Price it in rather than absorbing it invisibly.</p>
+  </div></div>
+
+  <div class="mrow"><span class="msec">4</span><div>
+    <div class="mtitle"><span class="mname">The Money</span><span class="chip stop">Change this</span></div>
+    <p class="mnote"><b>$150 is below KC market for the home described.</b> Local operators publish $0.10&ndash;0.20/sq ft, putting a 2,000 sq ft home at $200&ndash;400; the national average job is $218. Section 6 says you won't compete on price &mdash; this is the section that does. <b>The 40% pool itself is fine</b> (industry norm 41.9%), but only with solo cleaners. See (A.8).</p>
+  </div></div>
+
+  <div class="mrow"><span class="msec">5</span><div>
+    <div class="mtitle"><span class="mname">Distribution</span><span class="chip stop">Re-aim</span></div>
+    <p class="mnote">The one paid channel points away from the core product. Recurring residential is priority #1 and comes from referrals and organic &mdash; yet the rep is aimed at Realtors, whose work is one-time move-outs, which (A.4) pays no retention bonus on. <b>The comp plan pays the rep worst for the channel it assigns them.</b> The fix is on the Commercial tab.</p>
+  </div></div>
+
+  <div class="mrow"><span class="msec">6</span><div>
+    <div class="mtitle"><span class="mname">Competition</span><span class="chip keep">Keep</span><span class="chip fix">Trim</span></div>
+    <p class="mnote">Right instinct, wrong list. Background-screened, insured, checklist, 24-hour guarantee and "same cleaner when practical" are advertised by every franchise here &mdash; table stakes, not differentiators. Drop the hedge on that last one and it becomes the only real differentiator in the market. See (E).</p>
+  </div></div>
+
+  <div class="mrow"><span class="msec">7</span><div>
+    <div class="mtitle"><span class="mname">Moat</span><span class="chip fix">Contradiction</span></div>
+    <p class="mnote">Route density is correctly named first &mdash; the one thing a metro-wide franchise structurally cannot copy in one quadrant. Then (A.8) draws a territory from Odessa to Lee's Summit: <b>33 miles, 42 minutes.</b> The map as drawn defeats the moat as stated.</p>
+  </div></div>
+
+  <div class="mrow"><span class="msec">8</span><div>
+    <div class="mtitle"><span class="mname">Execution</span><span class="chip stop">Two fixes</span></div>
+    <p class="mnote"><b>Solo versus two-person crews is the most consequential distinction in the plan, and it is never made.</b> A team doubles paid travel against revenue that doesn't move: solo clears the wage floor comfortably, teams on long routes don't. Second, the backup escalation contact is also one of the cleaners &mdash; at 9:15 on a Tuesday she is on a job and you are at work.</p>
+  </div></div>
+
+  <div class="mrow"><span class="msec">9</span><div>
+    <div class="mtitle"><span class="mname">Time, Travel &amp; Payroll</span><span class="chip keep">Best section</span></div>
+    <p class="mnote">The strongest part of the document. Identifying compensable between-job travel before hiring anyone is something most operators learn the expensive way. Note it also forces the $149 software tier over the $99 one, since only the higher tier geofences.</p>
+  </div></div>
+
+  <div class="mrow"><span class="msec">10</span><div>
+    <div class="mtitle"><span class="mname">Sales Operating Rules</span><span class="chip keep">Keep</span><span class="chip stop">One blocker</span></div>
+    <p class="mnote">Commission on <em>collected</em> revenue is exactly right and kills the underbid-to-close spiral. But <b>no base pay appears anywhere</b>, and on commission alone a rep hitting the 15-customer target earns about $1,540/month. That number decides whether the launch test can even run. See (A.16).</p>
+  </div></div>
+
+  <div class="mrow"><span class="msec">11</span><div>
+    <div class="mtitle"><span class="mname">Employee &amp; Customer Protections</span><span class="chip keep">Keep</span></div>
+    <p class="mnote">Not deducting damage or re-cleans from W-2 wages is the legally correct answer, and plenty of small operators get it wrong. W-2 over 1099 is also right &mdash; with checklists, uniforms and assigned customers, contractor status wouldn't survive a challenge.</p>
+  </div></div>
+
+  <div class="mrow"><span class="msec">12</span><div>
+    <div class="mtitle"><span class="mname">Commercial</span><span class="chip fix">Now priced</span></div>
+    <p class="mnote">Correctly flagged as unpriced &mdash; while (A.5) sends the rep out to sell it anyway. That was the sequencing error. <b>The bid calculator is now built</b>; it is on the Commercial tab, and it turns this from a blocker into the plan's best opportunity.</p>
+  </div></div>
+
+  <div class="mrow"><span class="msec">13</span><div>
+    <div class="mtitle"><span class="mname">Ownership &amp; Governance</span><span class="chip later">Separate conversation</span></div>
+    <p class="mnote">Separate conversation.</p>
+  </div></div>
+
+  <div class="mrow"><span class="msec">14</span><div>
+    <div class="mtitle"><span class="mname">Expansion</span><span class="chip stop">Gate too low</span></div>
+    <p class="mnote">The $30k/month gate produces about <b>$4,500/month</b> to Kaleb against a $10,000 goal &mdash; so as written the plan opens a second market at 45% of the objective. The gate belongs at or above the owner-income target.</p>
+  </div></div>
+
+  <div class="mrow"><span class="msec">15</span><div>
+    <div class="mtitle"><span class="mname">Risk Register</span><span class="chip keep">Keep</span></div>
+    <p class="mnote">Honest and nearly complete. One missing item: what happens to the technology if the person who built it is unavailable.</p>
+  </div></div>
+
+  <div class="mrow"><span class="msec">16</span><div>
+    <div class="mtitle"><span class="mname">The Kill Test</span><span class="chip stop">Tests the wrong thing</span></div>
+    <p class="mnote">The whole go/no-go rests on one salesperson producing five paid customers in 30 days while earning about <b>$512 in month one</b> under the comp plan as written. That person leaves before the test returns a signal, and you learn about the comp plan rather than the market. <b>Fix the seat before running the test.</b></p>
+  </div></div>
+
+  <div class="mrow"><span class="msec">17</span><div>
+    <div class="mtitle"><span class="mname">Three Assumptions</span><span class="chip fix">Re-rank</span></div>
+    <p class="mnote">Assumption #2 (does 40% survive real costs) <b>survives the data</b>. Assumption #3 (retention) is <b>better than assumed</b> &mdash; about 16 months of average customer life. That leaves acquisition as the only genuine unknown, which is exactly where the 30-day test should point.</p>
+  </div></div>
+
+  <div class="mrow"><span class="msec">18</span><div>
+    <div class="mtitle"><span class="mname">Strongest Argument Against</span><span class="chip keep">Accurate</span></div>
+    <p class="mnote">"A management and logistics company disguised as a cleaning company. If the systems are weak, Kaleb becomes the system." Right diagnosis &mdash; and it deserves a named weekday dispatcher rather than a paragraph.</p>
+  </div></div>
+
+  <div class="mrow"><span class="msec">19</span><div>
+    <div class="mtitle"><span class="mname">Final Verdict</span><span class="chip fix">Premature, not wrong</span></div>
+    <p class="mnote">GREEN was called while (A.20) still listed the product's price, commercial pricing, the pay model's legality and insurance costs as unresolved. The direction is right; the light was switched on four sections early.</p>
+  </div></div>
+
+  <div class="mrow"><span class="msec">20</span><div>
+    <div class="mtitle"><span class="mname">Unresolved Pre-Launch Work</span><span class="chip keep">Right list</span></div>
+    <p class="mnote">Items 1, 3, 4 and 5 are the real blockers: KC pricing, true cleaner cost, Missouri travel and overtime sign-off, insurance quotes. Items 1 and 3 are largely answered here; 4 and 5 need one phone call each.</p>
+  </div></div>
+</section>
+
+<!-- ==================== B &mdash; NUMBERS ==================== -->
+<section class="screen wrap" id="s-numbers" role="tabpanel" aria-labelledby="t-numbers" hidden>
+  <div class="stitle"><span class="sletter">B</span><h2>The numbers</h2></div>
+  <p class="lede">Same business, same margins, same market. The only differences are price, crew shape and territory.</p>
+
+  <div class="stack">
+    <div>
+      <h3 style="margin-top:0;">Table 1 &mdash; the plan exactly as written</h3>
+      <p class="scrollhint">Swipe the table sideways &rarr;</p>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Input</th><th class="num">Value</th><th>Where it comes from</th></tr></thead>
+          <tbody>
+            <tr><td class="lbl">Price per recurring visit</td><td class="num">$150</td><td class="lbl">(A.4) minimum</td></tr>
+            <tr><td class="lbl">Crew</td><td class="num">2-person</td><td class="lbl">"a two-person team splits the pool"</td></tr>
+            <tr><td class="lbl">Territory</td><td class="num">6 cities</td><td class="lbl">Odessa to Lee's Summit</td></tr>
+            <tr><td class="lbl">Paid travel per job</td><td class="num">1.4 hrs</td><td class="lbl">two people, long legs</td></tr>
+            <tr><td class="lbl">Labor pool</td><td class="num">40%</td><td class="lbl">(A.4)</td></tr>
+            <tr><td class="lbl">Sales seat</td><td class="num">$4,000/mo</td><td class="lbl">what one actually costs</td></tr>
+            <tr class="total"><td class="lbl">Contribution per job</td><td class="num">$39.25</td><td class="lbl">26.2% margin</td></tr>
+            <tr><td class="lbl">Cleaner earns</td><td class="num bad">$8.82/hr</td><td class="lbl">below the $15.00 Missouri floor</td></tr>
+            <tr class="total"><td class="lbl">To reach $10,000/mo</td><td class="num bad">215 customers</td><td class="lbl">$69,975/mo &middot; 19.8 cleaners</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="fnote">This is the literal reading &mdash; two-person crews on the full six-city territory. Read the same plan as solo cleaners on short routes and it looks far better, which is the point: <b>the plan permits both readings and never says which it means.</b></p>
+    </div>
+
+    <div>
+      <h3>Table 2 &mdash; the same plan, three free changes</h3>
+      <p class="scrollhint">Swipe the table sideways &rarr;</p>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Input</th><th class="num">Value</th><th>Why</th></tr></thead>
+          <tbody>
+            <tr><td class="lbl">Price per recurring visit</td><td class="num good">$195</td><td class="lbl">mid-market for 2,000 sq ft in KC</td></tr>
+            <tr><td class="lbl">Crew</td><td class="num good">Solo</td><td class="lbl">halves paid travel per job</td></tr>
+            <tr><td class="lbl">Territory</td><td class="num good">Blue Springs + Grain Valley</td><td class="lbl">10 minutes end to end</td></tr>
+            <tr><td class="lbl">Paid travel per job</td><td class="num">0.4 hrs</td><td class="lbl">tight routes, one person</td></tr>
+            <tr><td class="lbl">Labor pool</td><td class="num">40%</td><td class="lbl">unchanged &mdash; never the problem</td></tr>
+            <tr><td class="lbl">Sales seat</td><td class="num good">not yet</td><td class="lbl">added once there's a book to sell into</td></tr>
+            <tr class="total"><td class="lbl">Contribution per job</td><td class="num">$75.97</td><td class="lbl">39.0% margin</td></tr>
+            <tr><td class="lbl">Cleaner earns</td><td class="num good">$27.86/hr</td><td class="lbl">~32% above the KC market rate of $21</td></tr>
+            <tr class="total"><td class="lbl">To reach $10,000/mo</td><td class="num good">86 customers</td><td class="lbl">$36,579/mo &middot; 3.3 cleaners</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="callout good">
+      <span class="kicker">What actually changed</span>
+      <p>Nothing structural. The model, the comp philosophy, the W-2 decision, the guarantee and the recurring-first strategy all stay. <b>Price moves to market, crews go solo, the map shrinks</b> &mdash; and the target drops from ~20 cleaners to 3.</p>
+    </div>
+
+    <!-- ---------- RUNWAY ---------- -->
+    <div class="card">
+      <h3 style="margin-top:0;">How much cash it takes to get there</h3>
+      <p class="fnote" style="margin:0 0 4px;">Uses whatever is set on the <b>Residential</b> tab &mdash; contribution per job, overhead, the sales seat and churn all feed straight in.</p>
+      <div class="calcgrid">
+        <div>
+          <div class="knob">
+            <div class="knobtop"><label for="r-capital">Cash you start with</label><span class="knobval" id="v-r-capital"></span></div>
+            <input type="range" id="r-capital" min="2000" max="40000" step="500" value="8000">
+          </div>
+          <div class="knob">
+            <div class="knobtop"><label for="r-setup">One-time setup before launch</label><span class="knobval" id="v-r-setup"></span></div>
+            <input type="range" id="r-setup" min="1000" max="20000" step="250" value="5500">
+            <p class="knobhint">Entity and operating agreement, insurance deposit, software setup, first marketing, cleaning kits.</p>
+          </div>
+          <div class="knob">
+            <div class="knobtop"><label for="r-new">New customers per month</label><span class="knobval" id="v-r-new"></span></div>
+            <input type="range" id="r-new" min="2" max="20" step="1" value="8">
+          </div>
+        </div>
+        <div>
+          <div class="bignum">
+            <span class="bk">Deepest the bank account goes</span>
+            <span class="bv" id="o-r-hole"></span>
+            <p class="bsub" id="o-r-holesub"></p>
+          </div>
+          <div class="roline"><span class="rk">Cash-flow positive in</span><span class="rv" id="o-r-break"></span></div>
+          <div class="roline"><span class="rk">Capital actually required</span><span class="rv" id="o-r-need"></span></div>
+          <div class="roline"><span class="rk">Monthly overhead from month one</span><span class="rv" id="o-r-burn"></span></div>
+          <div class="verdictline" id="o-r-verdict"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ---------- PROVENANCE ---------- -->
+    <div>
+      <h3>What is sourced, what is computed, what is a guess</h3>
+      <p class="scrollhint">Swipe the table sideways &rarr;</p>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Figure</th><th class="num">Value</th><th>Basis</th></tr></thead>
+          <tbody>
+            <tr><td class="grp" colspan="3" style="background:var(--ledger-bg); color:var(--ledger);">Sourced &mdash; published and citable</td></tr>
+            <tr><td class="lbl">Missouri minimum wage</td><td class="num">$15.00</td><td class="lbl">labor.mo.gov, effective 1 Jan 2026</td></tr>
+            <tr><td class="lbl">Minimum-wage exemption</td><td class="num">$500k/yr</td><td class="lbl">MO DOLIR; matches federal enterprise coverage</td></tr>
+            <tr><td class="lbl">KC residential pricing</td><td class="num">$0.10&ndash;0.20/sq ft</td><td class="lbl">Best Clean KC, Two Gals &amp; A Broom published rates</td></tr>
+            <tr><td class="lbl">National average per job</td><td class="num">$218.18</td><td class="lbl">MaidCentral industry survey 2026</td></tr>
+            <tr><td class="lbl">Industry direct payroll</td><td class="num">41.92%</td><td class="lbl">same survey &mdash; this validates the 40% pool</td></tr>
+            <tr><td class="lbl">KC house-cleaner pay</td><td class="num">$21.17/hr</td><td class="lbl">Indeed, Missouri; survey says $21.20</td></tr>
+            <tr><td class="lbl">Monthly customer churn</td><td class="num">6.21%</td><td class="lbl">industry survey &mdash; drives customer life</td></tr>
+            <tr><td class="lbl">KC janitor wage</td><td class="num">$16.45&ndash;17.30</td><td class="lbl">commercial cleaning, KC metro</td></tr>
+            <tr><td class="lbl">Commercial labor share</td><td class="num">~45%</td><td class="lbl">janitorial norm; higher than residential</td></tr>
+            <tr><td class="lbl">Commercial sales comp</td><td class="num">15&ndash;40% + 1&ndash;3%</td><td class="lbl">first month, then ongoing residual</td></tr>
+            <tr><td class="lbl">Why commercial contracts are lost</td><td class="num">45 / 28 / 18</td><td class="lbl">quality / communication / price, percent</td></tr>
+            <tr><td class="lbl">ISSA office production rate</td><td class="num">4,000 sq ft/hr</td><td class="lbl">book rate &mdash; see the warning on Commercial</td></tr>
+            <tr><td class="lbl">Odessa to Lee's Summit</td><td class="num">33 mi / 42 min</td><td class="lbl">measured</td></tr>
+            <tr><td class="lbl">Competitors in territory</td><td class="num">6+</td><td class="lbl">MaidPro &times;2, Cleaning Authority, The Maids, Best Clean KC</td></tr>
+
+            <tr><td class="grp" colspan="3" style="background:var(--surface-2);">Computed &mdash; arithmetic, no judgment</td></tr>
+            <tr><td class="lbl">All contribution and margin figures</td><td class="num">&mdash;</td><td class="lbl">direct arithmetic from the inputs above</td></tr>
+            <tr><td class="lbl">Customers needed for any target</td><td class="num">&mdash;</td><td class="lbl">solved from contribution and overhead</td></tr>
+            <tr><td class="lbl">Cleaner hourly by crew size</td><td class="num">&mdash;</td><td class="lbl">pool divided by compensable hours</td></tr>
+            <tr><td class="lbl">Retention-bonus cost</td><td class="num">$83</td><td class="lbl">derived from 6.21% churn, not estimated</td></tr>
+            <tr><td class="lbl">Salesperson earnings</td><td class="num">~$1,540/mo</td><td class="lbl">the plan's own schedule at its own target</td></tr>
+
+            <tr><td class="grp" colspan="3" style="background:var(--amber-bg); color:var(--amber);">Assumed &mdash; my judgment, and every one is a slider</td></tr>
+            <tr><td class="lbl">Cleaning hours per visit</td><td class="num">2.4</td><td class="lbl">implied by $62.41 revenue per job-hour</td></tr>
+            <tr><td class="lbl">Paid travel per visit</td><td class="num">0.4 / 1.4 hrs</td><td class="lbl">tight vs wide territory &mdash; <b>needs a stopwatch</b></td></tr>
+            <tr><td class="lbl">Payroll burden</td><td class="num">21% / 30%</td><td class="lbl">residential / commercial; range 18&ndash;35%</td></tr>
+            <tr><td class="lbl">Small-building slowdown</td><td class="num">35&ndash;60%</td><td class="lbl">of ISSA book rate &mdash; the biggest bid risk</td></tr>
+            <tr><td class="lbl">Fixed overhead</td><td class="num">$1,750/mo</td><td class="lbl">software sourced, rest estimated</td></tr>
+            <tr><td class="lbl">Sales seat all-in</td><td class="num">$4,000/mo</td><td class="lbl">what it takes to retain someone competent</td></tr>
+            <tr><td class="lbl">Setup and starting cash</td><td class="num">sliders</td><td class="lbl">nobody has priced these yet</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="callout">
+      <span class="kicker">The honest summary</span>
+      <p>The <b>direction</b> of every finding is well supported &mdash; underpricing, the solo-versus-team wage gap, the expansion gate below the goal, the rep's earnings. All published figures or arithmetic on the plan's own numbers.</p>
+      <p>The <b>magnitudes</b> depend on three things nobody has measured: how long a job really takes, how far apart customers really are, and what a salesperson really costs. Two are answerable in a fortnight with a stopwatch and a map.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== C &mdash; RESIDENTIAL ==================== -->
+<section class="screen wrap" id="s-res" role="tabpanel" aria-labelledby="t-res" hidden>
+  <div class="stitle"><span class="sletter">C</span><h2>Residential calculator</h2></div>
+  <p class="lede">Every assumption is a slider. Everything re-solves as you move them &mdash; including whether the pay model clears the Missouri wage floor.</p>
+
+  <div class="presets">
+    <span class="plabel">Start from</span>
+    <button class="pre" id="p-written" aria-pressed="false">Plan as written</button>
+    <button class="pre" id="p-suggested" aria-pressed="true">Suggested</button>
+  </div>
+
+  <div class="calcgrid">
+    <div class="stack">
+      <div class="card">
+        <h3 style="margin-top:0;">The job</h3>
+        <div class="knob">
+          <div class="knobtop"><label for="k-ticket">Price per recurring visit</label><span class="knobval" id="v-ticket"></span></div>
+          <input type="range" id="k-ticket" min="120" max="320" step="5">
+        </div>
+        <div class="knob">
+          <div class="knobtop"><label for="k-freq">Visits per month</label><span class="knobval" id="v-freq"></span></div>
+          <input type="range" id="k-freq" min="1" max="4.34" step="0.01">
+        </div>
+        <div class="knob">
+          <div class="knobtop"><label for="k-onsite">Cleaning hours per visit</label><span class="knobval" id="v-onsite"></span></div>
+          <input type="range" id="k-onsite" min="1.5" max="5" step="0.1">
+        </div>
+        <div class="knob">
+          <div class="knobtop"><label for="k-travel">Paid travel per visit</label><span class="knobval" id="v-travel"></span></div>
+          <input type="range" id="k-travel" min="0.1" max="2" step="0.1">
+        </div>
+        <div class="knob">
+          <div class="knobtop"><label for="k-crew">People on the job</label><span class="knobval" id="v-crew"></span></div>
+          <input type="range" id="k-crew" min="1" max="3" step="1">
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 style="margin-top:0;">Costs</h3>
+        <div class="knob">
+          <div class="knobtop"><label for="k-pool">Cleaner labor pool</label><span class="knobval" id="v-pool"></span></div>
+          <input type="range" id="k-pool" min="25" max="55" step="1">
+        </div>
+        <div class="knob">
+          <div class="knobtop"><label for="k-burden">Payroll burden on wages</label><span class="knobval" id="v-burden"></span></div>
+          <input type="range" id="k-burden" min="12" max="30" step="1">
+        </div>
+        <div class="knob">
+          <div class="knobtop"><label for="k-fixed">Fixed overhead per month</label><span class="knobval" id="v-fixed"></span></div>
+          <input type="range" id="k-fixed" min="600" max="5000" step="50">
+        </div>
+        <div class="knob">
+          <div class="knobtop"><label for="k-sales">Sales seat per month</label><span class="knobval" id="v-sales"></span></div>
+          <input type="range" id="k-sales" min="0" max="9000" step="250">
+        </div>
+        <div class="knob">
+          <div class="knobtop"><label for="k-mgr">Ops manager per month</label><span class="knobval" id="v-mgr"></span></div>
+          <input type="range" id="k-mgr" min="0" max="7000" step="250">
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 style="margin-top:0;">The goal</h3>
+        <div class="knob">
+          <div class="knobtop"><label for="k-churn">Monthly customer churn</label><span class="knobval" id="v-churn"></span></div>
+          <input type="range" id="k-churn" min="2" max="14" step="0.1">
+        </div>
+        <div class="knob">
+          <div class="knobtop"><label for="k-goal">Owner income target (Kaleb, 80%)</label><span class="knobval" id="v-goal"></span></div>
+          <input type="range" id="k-goal" min="2000" max="20000" step="250">
+        </div>
+      </div>
+    </div>
+
+    <div class="stack">
+      <div class="card">
+        <div class="bignum">
+          <span class="bk">Recurring customers needed</span>
+          <span class="bv" id="o-cust"></span>
+          <p class="bsub" id="o-custsub"></p>
+        </div>
+        <div class="roline"><span class="rk">Monthly revenue</span><span class="rv" id="o-monrev"></span></div>
+        <div class="roline"><span class="rk">Jobs per month</span><span class="rv" id="o-jobs"></span></div>
+        <div class="roline"><span class="rk">Full-time cleaners</span><span class="rv" id="o-fte"></span></div>
+        <div class="roline"><span class="rk">Months to get there at 8 new/mo</span><span class="rv" id="o-months"></span></div>
+        <div class="verdictline" id="o-verdict"></div>
+      </div>
+
+      <div class="card">
+        <h3 style="margin-top:0;">One visit, line by line</h3>
+        <div class="roline"><span class="rk">Revenue</span><span class="rv" id="o-rev"></span></div>
+        <div class="roline"><span class="rk">Cleaner pool</span><span class="rv" id="o-pool"></span></div>
+        <div class="roline"><span class="rk">Payroll burden</span><span class="rv" id="o-burden"></span></div>
+        <div class="roline"><span class="rk">Supplies, card, mileage, re-cleans</span><span class="rv" id="o-other"></span></div>
+        <div class="roline"><span class="rk">Contribution</span><span class="rv" id="o-contrib"></span></div>
+        <div class="roline"><span class="rk">Margin</span><span class="rv" id="o-margin"></span></div>
+      </div>
+
+      <div class="card">
+        <h3 style="margin-top:0;">The cleaner &amp; the customer</h3>
+        <div class="roline"><span class="rk">Each cleaner earns</span><span class="rv" id="o-hourly"></span></div>
+        <div class="roline"><span class="rk">vs MO floor $15.00 / KC market $21</span><span class="rv" id="o-vsmarket"></span></div>
+        <div class="roline"><span class="rk">Average customer life</span><span class="rv" id="o-life"></span></div>
+        <div class="roline"><span class="rk">Lifetime contribution</span><span class="rv" id="o-ltv"></span></div>
+        <div class="roline"><span class="rk">Acquisition cost</span><span class="rv" id="o-cac"></span></div>
+        <div class="roline"><span class="rk">Value to cost</span><span class="rv" id="o-ratio"></span></div>
+      </div>
+    </div>
+  </div>
+  <p class="fnote">Supplies 3% of revenue, card fees 2.9% + $0.30, mileage at 25 mph local driving and $0.70/mile, re-clean reserve 3%. Churn drives customer life and the expected cost of the clean #3 and #10 retention bonuses.</p>
+</section>
+
+<!-- ==================== D &mdash; COMMERCIAL ==================== -->
+<section class="screen wrap" id="s-comm" role="tabpanel" aria-labelledby="t-comm" hidden>
+  <div class="stitle"><span class="sletter">D</span><h2>Commercial bid calculator</h2></div>
+  <p class="lede">(A.12) called commercial pricing the major unresolved item, and (A.5) sent the rep to sell it anyway. This closes that gap: bid from labor hours up, then check the result against market.</p>
+
+  <div class="stack">
+    <div class="callout bad">
+      <span class="kicker">Read this before quoting anything</span>
+      <p><b>Published janitorial rates per square foot are per MONTH, not per visit.</b> Quoting a per-visit price off a per-month table is how new operators sign a contract they lose money on for a year. Always build from hours; use the per-square-foot figure only as a sanity check afterwards.</p>
+      <p><b>Small buildings clean far slower than the book rate.</b> A 2,000 sq ft office runs about 1,400 sq ft/hr against an ISSA book rate of 4,000 &mdash; setup, travel between rooms and fixed tasks don't shrink with the building. This single number decides whether a bid is profitable.</p>
+    </div>
+
+    <div class="segwrap">
+      <span class="plabel">Show me</span>
+      <div class="seg">
+        <button id="m-internal" aria-pressed="true">Internal</button>
+        <button id="m-client" aria-pressed="false">What the client sees</button>
+      </div>
+    </div>
+
+    <div class="calcgrid">
+      <div class="stack">
+        <div class="card">
+          <h3 style="margin-top:0;">The building</h3>
+          <div class="knob">
+            <div class="knobtop"><label for="c-sqft">Cleanable square feet</label><span class="knobval" id="v-c-sqft"></span></div>
+            <input type="range" id="c-sqft" min="800" max="30000" step="200" value="6000">
+          </div>
+          <div class="knob">
+            <div class="knobtop"><label for="c-eff">Speed vs ISSA book rate</label><span class="knobval" id="v-c-eff"></span></div>
+            <input type="range" id="c-eff" min="25" max="100" step="1" value="59">
+            <p class="knobhint" id="h-c-eff"></p>
+          </div>
+          <div class="knob">
+            <div class="knobtop"><label for="c-fixtures">Restroom fixtures</label><span class="knobval" id="v-c-fixtures"></span></div>
+            <input type="range" id="c-fixtures" min="0" max="40" step="1" value="8">
+            <p class="knobhint">3.5 minutes each &mdash; toilets, urinals, sinks.</p>
+          </div>
+          <div class="knob">
+            <div class="knobtop"><label for="c-rooms">Restrooms</label><span class="knobval" id="v-c-rooms"></span></div>
+            <input type="range" id="c-rooms" min="0" max="12" step="1" value="4">
+            <p class="knobhint">6 minutes each for floors, mirrors and restocking.</p>
+          </div>
+          <div class="knob">
+            <div class="knobtop"><label for="c-visits">Visits per week</label><span class="knobval" id="v-c-visits"></span></div>
+            <input type="range" id="c-visits" min="1" max="7" step="1" value="3">
+          </div>
+        </div>
+
+        <div class="card">
+          <h3 style="margin-top:0;">Your costs</h3>
+          <div class="knob">
+            <div class="knobtop"><label for="c-wage">Cleaner wage</label><span class="knobval" id="v-c-wage"></span></div>
+            <input type="range" id="c-wage" min="15" max="26" step="0.25" value="17">
+            <p class="knobhint">KC commercial janitorial runs $16.45&ndash;17.30.</p>
+          </div>
+          <div class="knob">
+            <div class="knobtop"><label for="c-burden">Payroll burden</label><span class="knobval" id="v-c-burden"></span></div>
+            <input type="range" id="c-burden" min="20" max="40" step="1" value="30">
+          </div>
+          <div class="knob">
+            <div class="knobtop"><label for="c-labor">Target labor share of price</label><span class="knobval" id="v-c-labor"></span></div>
+            <input type="range" id="c-labor" min="35" max="60" step="1" value="45">
+            <p class="knobhint">45% is the janitorial norm &mdash; higher than residential.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="stack">
+        <div class="card" id="panel-internal">
+          <div class="bignum">
+            <span class="bk">This contract equals</span>
+            <span class="bv" id="o-c-equiv"></span>
+            <p class="bsub" id="o-c-equivsub"></p>
+          </div>
+          <div class="roline"><span class="rk">Monthly price</span><span class="rv" id="o-c-price"></span></div>
+          <div class="roline"><span class="rk">Cleaner-hours per visit</span><span class="rv" id="o-c-hpv"></span></div>
+          <div class="roline"><span class="rk">Cleaner-hours per month</span><span class="rv" id="o-c-hpm"></span></div>
+          <div class="roline"><span class="rk">Wages + burden per month</span><span class="rv" id="o-c-labor"></span></div>
+          <div class="roline"><span class="rk">Supplies</span><span class="rv" id="o-c-supp"></span></div>
+          <div class="roline"><span class="rk">Contribution per month</span><span class="rv" id="o-c-contrib"></span></div>
+          <div class="roline"><span class="rk">Effective bill rate</span><span class="rv" id="o-c-bill"></span></div>
+          <div class="roline"><span class="rk">Sanity check per sq ft / month</span><span class="rv" id="o-c-psf"></span></div>
+          <div class="verdictline" id="o-c-verdict"></div>
+        </div>
+
+        <div class="card" id="panel-client" hidden>
+          <span class="kicker gr">Proposal &mdash; what goes to the client</span>
+          <div class="bignum">
+            <span class="bk">Monthly service</span>
+            <span class="bv" id="o-c-clientprice"></span>
+            <p class="bsub" id="o-c-clientsub"></p>
+          </div>
+          <div class="roline"><span class="rk">Term</span><span class="rv">12 months, auto-renew</span></div>
+          <div class="roline"><span class="rk">Cancellation</span><span class="rv">30 days' written notice</span></div>
+          <div class="roline"><span class="rk">Annual escalator</span><span class="rv">CPI, capped at 3%</span></div>
+          <div class="roline"><span class="rk">Payment terms</span><span class="rv">Net 30</span></div>
+          <div class="roline"><span class="rk">Hourly rate</span><span class="rv good">never shown</span></div>
+          <div class="verdictline ok">Quote one flat monthly figure. The moment an hourly rate appears, the conversation becomes about hours instead of outcome &mdash; and every efficiency gain you make becomes a discount you owe.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- rep earnings -->
+    <div class="card">
+      <h3 style="margin-top:0;">What this pays a salesperson</h3>
+      <p class="fnote" style="margin:0 0 6px;">Commercial norms: 15&ndash;40% of the first month, plus a 1&ndash;3% residual for as long as the contract runs. Residential cannot pay a residual, because there is no contract to pay it against.</p>
+      <div class="calcgrid">
+        <div>
+          <div class="knob">
+            <div class="knobtop"><label for="c-contracts">Contracts closed per month</label><span class="knobval" id="v-c-contracts"></span></div>
+            <input type="range" id="c-contracts" min="1" max="6" step="1" value="2">
+          </div>
+          <div class="knob">
+            <div class="knobtop"><label for="c-comm">Commission on first month</label><span class="knobval" id="v-c-comm"></span></div>
+            <input type="range" id="c-comm" min="10" max="40" step="1" value="25">
+          </div>
+          <div class="knob">
+            <div class="knobtop"><label for="c-resid">Ongoing residual</label><span class="knobval" id="v-c-resid"></span></div>
+            <input type="range" id="c-resid" min="0" max="3" step="0.1" value="2">
+          </div>
+        </div>
+        <div>
+          <div class="roline"><span class="rk">Rep earns, month 1</span><span class="rv" id="o-c-m1"></span></div>
+          <div class="roline"><span class="rk">Rep earns, month 12</span><span class="rv" id="o-c-m12"></span></div>
+          <div class="roline"><span class="rk">Rep earns, month 24</span><span class="rv" id="o-c-m24"></span></div>
+          <div class="roline"><span class="rk">Residential comp, 15 new/mo</span><span class="rv">$1,540 &mdash; flat</span></div>
+          <div class="verdictline" id="o-c-repverdict"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- combined -->
+    <div class="card">
+      <h3 style="margin-top:0;">Both together, against the $10k goal</h3>
+      <div class="calcgrid">
+        <div>
+          <div class="knob">
+            <div class="knobtop"><label for="c-book">Commercial contracts on the books</label><span class="knobval" id="v-c-book"></span></div>
+            <input type="range" id="c-book" min="0" max="12" step="1" value="3">
+            <p class="knobhint">Each one priced as above. Owner target and overhead come from the Residential tab.</p>
+          </div>
+        </div>
+        <div>
+          <div class="bignum">
+            <span class="bk">Residential customers still needed</span>
+            <span class="bv" id="o-mix-cust"></span>
+            <p class="bsub" id="o-mix-sub"></p>
+          </div>
+          <div class="roline"><span class="rk">Contribution from commercial</span><span class="rv" id="o-mix-comm"></span></div>
+          <div class="roline"><span class="rk">Contribution from residential</span><span class="rv" id="o-mix-res"></span></div>
+          <div class="roline"><span class="rk">Combined monthly revenue</span><span class="rv" id="o-mix-rev"></span></div>
+          <div class="roline"><span class="rk">Full-time cleaners, both sides</span><span class="rv" id="o-mix-fte"></span></div>
+          <div class="verdictline" id="o-mix-verdict"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout good">
+      <span class="kicker">Residential is still the business</span>
+      <p>None of this moves away from recurring residential. It is the product, it is what builds route density, and it is what a buyer eventually pays for. Residential keeps growing the way (A.2) already says it does &mdash; referrals, organic, local search &mdash; and those channels cost far less than a commission.</p>
+      <p>What changes is only <b>what the paid seat sells</b>. A residential customer is too small a ticket to fund a commission; a commercial contract is large enough to fund one and pays a residual on top. Same rep, same effort per close, several times the contribution &mdash; and it happens to reward exactly the thing commercial buyers care about, since contracts are lost on quality (45%) and communication (28%) far more than price (18%).</p>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== E &mdash; EDGE ==================== -->
+<section class="screen wrap" id="s-edge" role="tabpanel" aria-labelledby="t-edge" hidden>
+  <div class="stitle"><span class="sletter">E</span><h2>The one thing nobody claims</h2></div>
+  <p class="lede">(A.6) lists "same cleaner when practical" among the differentiators, hedged. Drop the hedge and it stops being table stakes and becomes the only unclaimed position in the eastern metro.</p>
+
+  <div class="stack">
+
+    <div class="card lead">
+      <span class="kicker am">The finding</span>
+      <p style="font-family:Newsreader,Georgia,serif; font-size:clamp(19px,3.6vw,25px); line-height:1.3; font-weight:500; margin-bottom:12px;">Not one operator in this market will promise you the same cleaner every time.</p>
+      <p>Every national franchise uses a near-identical escape hatch, verified on their own pages: <em>"every effort &mdash; but illness, vacation and staff changes."</em> The Cleaning Authority and Molly Maid make no staffing promise at all; they sell consistency of <em>method</em> instead. The one local operator who mentions it, Two Gals &amp; A Broom, does so as hedged small print in an FAQ on SEO town pages &mdash; their homepage never raises it.</p>
+    </div>
+
+    <div>
+      <h3>Their own customers say it is the problem</h3>
+      <div class="stack">
+        <div class="card">
+          <p class="quote">A different cleaner shows up almost every time.<span class="qsrc">MaidPro &mdash; <span class="rating">3.3 stars</span></span></p>
+        </div>
+        <div class="card">
+          <p class="quote">I specifically asked for them only. That did not happen.<span class="qsrc">The Cleaning Authority &mdash; <span class="rating">2.4 stars</span></span></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3 style="margin-top:0;">Why the franchises cannot simply fix it</h3>
+      <p>Geographic routing plus part-time staffing makes personnel a <em>dependent</em> variable: the time slot dictates who is available, so the crew falls out of the schedule rather than the customer relationship. Fixing it would mean rebuilding how they route and how they staff, in every franchise, at once.</p>
+      <p>A tight-footprint operator running solo cleaners has the opposite constraint &mdash; the route is short enough that one person can own it. <b>Which means the operational fix in (A.7) and (A.8) and the marketing hook here are the same decision.</b> Shrink the map, go solo, and the promise becomes deliverable as a side effect of the thing you were already going to do for margin.</p>
+    </div>
+
+    <div class="hgrid">
+      <div class="hcell alt">
+        <span class="hk">The offer</span>
+        <span class="hv words">"The same person every visit &mdash; or that clean is free."</span>
+        <p class="hn">Hard, unhedged, with a penalty attached. Nobody in this market offers it, and the penalty is what makes it credible.</p>
+      </div>
+      <div class="hcell">
+        <span class="hk">Why it works commercially too</span>
+        <span class="hv words">45% quality &middot; 28% communication &middot; 18% price</span>
+        <p class="hn">Why commercial contracts are lost. The same promise answers the top two, and neither is price.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3 style="margin-top:0;">Three more lanes standing open</h3>
+      <div class="steps">
+        <div class="step">
+          <span class="stepn">1</span>
+          <div>
+            <p class="steph">Published flat-rate pricing</p>
+            <p class="stepb">Every local independent is quote-only. Publishing real prices from a genuinely local operator is unclaimed &mdash; and it is the same decision as settling (A.4).</p>
+          </div>
+        </div>
+        <div class="step">
+          <span class="stepn">2</span>
+          <div>
+            <p class="steph">Text-first communication</p>
+            <p class="stepb">One operator in the market so much as mentions texting. Communication is 28% of why commercial contracts are lost.</p>
+          </div>
+        </div>
+        <div class="step">
+          <span class="stepn">3</span>
+          <div>
+            <p class="steph">Pet-friendly, said out loud</p>
+            <p class="stepb">Essentially unclaimed, and the plan already has pet-handling rules written. This is free.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <span class="kicker">Oak Grove and Odessa &mdash; a real tension</span>
+      <p><b>Zero cleaning companies are based in either town.</b> CottageCare's service list stops at Grain Valley; everyone else dispatches 25&ndash;40 miles. That is a genuine gap &mdash; but they are underserved <em>because</em> they are far, which is exactly what (A.7) says destroys route density.</p>
+      <p>Best read: a <b>surcharged outer zone</b> served on a fixed day once the core is dense, not core launch territory. Do not let the empty map talk you into the long drive.</p>
+    </div>
+
+    <div class="card">
+      <span class="kicker rd">Do not repeat these &mdash; they did not check out</span>
+      <p class="mnote" style="margin-bottom:8px;">The "200&ndash;400% cleaning industry turnover" figure could not be traced to any primary source; BLS JOLTS implies roughly 55% for the sector. Household and income data for these specific towns was never obtained. grainvalleycleaning.com no longer resolves &mdash; possibly defunct, unconfirmed.</p>
+      <p class="mnote">Two research threads were stopped early: mining competitor reviews for gaps by omission, and ranking underserved niches. Neither changes anything above, but neither is finished.</p>
+    </div>
+
+  </div>
+</section>
+
+</main>
+
+
+<button class="fab" id="n-open" aria-label="Open notes">NOTES<span class="badge" id="n-badge" hidden>0</span></button>
+
+<div class="nbackdrop" id="n-backdrop" hidden></div>
+
+<aside class="nsheet" id="n-sheet" hidden aria-label="Notes and questions">
+  <div class="nhead">
+    <div>
+      <div class="ntitle">Notes &amp; questions</div>
+      <p class="nsub">Saved on this phone only. When you&rsquo;re done, tap <b>Copy all</b> and text it to Tim.</p>
+    </div>
+    <button class="nclose" id="n-close" aria-label="Close notes">&times;</button>
+  </div>
+  <div class="nbody">
+    <div class="ncompose">
+      <textarea id="n-text" rows="3" placeholder="A note, a question, or something you want run&hellip;"></textarea>
+      <div class="nrow">
+        <div class="seg" role="group" aria-label="Kind of note">
+          <button type="button" id="n-kind-note" aria-pressed="true">Note</button>
+          <button type="button" id="n-kind-prompt" aria-pressed="false">To run</button>
+        </div>
+        <button class="nadd" id="n-add">Add</button>
+      </div>
+      <p class="nnote">Nothing here runs by itself &mdash; this is a notepad. Tim reads it and decides what to act on.</p>
+    </div>
+    <div class="nlist" id="n-list"></div>
+  </div>
+  <div class="nfoot">
+    <button class="nbtn" id="n-copy">Copy all</button>
+    <button class="nbtn danger" id="n-clear">Clear all</button>
+  </div>
+</aside>
+
+<footer>
+  <div class="wrap">
+    Working notes on KC_Cleaning_Business_Grill_Report.docx &middot; September 2026<br>
+    Figures are modelled, not audited. Legal points are flags for counsel, not advice. Ownership and compensation (A.13) are a separate conversation.
+  </div>
+</footer>
+
+<script>
+(function () {
+  "use strict";
+
+  /* ---------------- tabs ---------------- */
+  var TABS = ["over","markup","numbers","res","comm","edge"];
+  function show(name) {
+    TABS.forEach(function (t) {
+      var btn = document.getElementById("t-" + t);
+      var pan = document.getElementById("s-" + t);
+      var on = (t === name);
+      btn.setAttribute("aria-selected", String(on));
+      pan.hidden = !on;
+    });
+    try { localStorage.setItem("bsl-tab", name); } catch (e) {}
+    window.scrollTo(0, 0);
+  }
+  TABS.forEach(function (t) {
+    document.getElementById("t-" + t).addEventListener("click", function () { show(t); });
+  });
+  var startTab = "over";
+  try {
+    var saved = localStorage.getItem("bsl-tab");
+    if (saved && TABS.indexOf(saved) !== -1) startTab = saved;
+  } catch (e) {}
+
+  /* ---------------- helpers ---------------- */
+  function money(n, dp) {
+    if (dp === undefined) dp = 0;
+    if (!isFinite(n)) return "—";
+    return "$" + n.toLocaleString("en-US", { minimumFractionDigits: dp, maximumFractionDigits: dp });
+  }
+  function set(id, txt, cls) {
+    var n = document.getElementById(id);
+    if (!n) return;
+    n.textContent = txt;
+    n.className = "rv" + (cls ? " " + cls : "");
+  }
+  function txt(id, s) { var n = document.getElementById(id); if (n) n.textContent = s; }
+  function verdict(id, cls, s) {
+    var n = document.getElementById(id);
+    if (!n) return;
+    n.className = "verdictline " + cls;
+    n.textContent = s;
+  }
+  function num(id) { return parseFloat(document.getElementById(id).value); }
+
+  /* ---------------- shared state ---------------- */
+  var RES = {};
+
+  /* ---------------- residential ---------------- */
+  var PRESETS = {
+    written:   { ticket:150, freq:2.17, onsite:4.0, travel:1.4, crew:2, pool:40, burden:21, fixed:1810, sales:4000, mgr:0, churn:6.2, goal:10000 },
+    suggested: { ticket:195, freq:2.17, onsite:2.4, travel:0.4, crew:1, pool:40, burden:21, fixed:1750, sales:0,    mgr:0, churn:6.2, goal:10000 }
+  };
+  var KEYS = ["ticket","freq","onsite","travel","crew","pool","burden","fixed","sales","mgr","churn","goal"];
+
+  function computeRes() {
+    var v = {};
+    KEYS.forEach(function (k) { v[k] = num("k-" + k); });
+
+    txt("v-ticket", money(v.ticket));
+    txt("v-freq",   v.freq.toFixed(2) + "/mo");
+    txt("v-onsite", v.onsite.toFixed(1) + " hrs");
+    txt("v-travel", v.travel.toFixed(1) + " hrs");
+    txt("v-crew",   v.crew === 1 ? "Solo" : v.crew + " people");
+    txt("v-pool",   v.pool + "%");
+    txt("v-burden", v.burden + "%");
+    txt("v-fixed",  money(v.fixed) + "/mo");
+    txt("v-sales",  v.sales === 0 ? "none yet" : money(v.sales) + "/mo");
+    txt("v-mgr",    v.mgr === 0 ? "none yet" : money(v.mgr) + "/mo");
+    txt("v-churn",  v.churn.toFixed(1) + "%/mo");
+    txt("v-goal",   money(v.goal) + "/mo");
+
+    var rev     = v.ticket;
+    var pool    = rev * v.pool / 100;
+    var burden  = pool * v.burden / 100;
+    var other   = rev * 0.03 + (rev * 0.029 + 0.30) + (v.travel * 25 * 0.70) + rev * 0.03;
+    var contrib = rev - pool - burden - other;
+    var margin  = contrib / rev;
+
+    var hoursEach  = (v.onsite / v.crew) + v.travel;
+    var hourlyEach = pool / (hoursEach * v.crew);
+
+    set("o-rev",     money(rev, 2));
+    set("o-pool",    "-" + money(pool, 2));
+    set("o-burden",  "-" + money(burden, 2));
+    set("o-other",   "-" + money(other, 2));
+    set("o-contrib", money(contrib, 2), contrib <= 0 ? "bad" : "good");
+    set("o-margin",  (margin * 100).toFixed(1) + "%", margin < 0.30 ? "warn" : "");
+
+    set("o-hourly", money(hourlyEach, 2) + "/hr",
+        hourlyEach < 15 ? "bad" : (hourlyEach < 21 ? "warn" : "good"));
+    var vs = hourlyEach < 15 ? "below the legal floor"
+           : hourlyEach < 21 ? "legal, below market"
+           : "+" + Math.round((hourlyEach / 21 - 1) * 100) + "% vs market";
+    set("o-vsmarket", vs, hourlyEach < 15 ? "bad" : (hourlyEach < 21 ? "warn" : "good"));
+
+    var churn = v.churn / 100;
+    var life  = 1 / churn;
+    var ltv   = rev * v.freq * life * margin;
+    var cac   = (rev * 1.9 * 0.15) + 50 * (Math.pow(1 - churn, 3 / v.freq) + Math.pow(1 - churn, 10 / v.freq));
+    var ratio = ltv / cac;
+    set("o-life",  life.toFixed(1) + " months");
+    set("o-ltv",   money(ltv));
+    set("o-cac",   money(cac));
+    set("o-ratio", ratio.toFixed(1) + ":1", ratio < 3 ? "bad" : (ratio < 5 ? "warn" : "good"));
+
+    var needContrib = v.goal / 0.80 + v.fixed + v.sales + v.mgr;
+    var jobs   = contrib > 0 ? needContrib / contrib : Infinity;
+    var cust   = jobs / v.freq;
+    var monrev = jobs * rev;
+    var fte    = jobs * hoursEach * v.crew / 160;
+
+    var months = 0, running = 0;
+    if (isFinite(cust)) {
+      while (running < cust && months < 240) { running = running * (1 - churn) + 8; months++; }
+    }
+
+    var bv = document.getElementById("o-cust");
+    bv.textContent = isFinite(cust) ? Math.round(cust).toLocaleString() : "never";
+    bv.style.color = !isFinite(cust) || cust > 200 ? "var(--red)"
+                   : cust > 130 ? "var(--amber)" : "var(--ledger)";
+    txt("o-custsub", "to put " + money(v.goal) + "/mo in Kaleb's pocket");
+
+    set("o-monrev", isFinite(monrev) ? money(monrev) + "/mo" : "—");
+    set("o-jobs",   isFinite(jobs) ? Math.round(jobs).toLocaleString() : "—");
+    set("o-fte",    isFinite(fte) ? fte.toFixed(1) : "—");
+    set("o-months", months >= 240 ? "not reachable at 8/mo" : months + " months",
+        months >= 240 ? "bad" : (months > 30 ? "warn" : "good"));
+
+    if (contrib <= 0) {
+      verdict("o-verdict", "no", "Every job loses money at these settings. Nothing downstream fixes that — raise the price or cut the hours.");
+    } else if (hourlyEach < 15) {
+      verdict("o-verdict", "no", "Cleaners fall below Missouri's $15.00 floor here. Fix crew size, route length or price before anything else.");
+    } else if (cust > 200) {
+      verdict("o-verdict", "no", "Reachable, but it needs a genuinely large operation — " + Math.ceil(fte) + " full-time cleaners. Worth asking whether the goal or the model should move.");
+    } else if (months > 36) {
+      verdict("o-verdict", "no", "The maths works, but at 8 new customers a month it takes " + months + " months to get there.");
+    } else {
+      verdict("o-verdict", "ok", "This works. " + Math.round(cust) + " customers, about " + Math.ceil(fte) +
+        " full-time cleaners, roughly " + months + " months of steady growth at 8 new a month.");
+    }
+
+    RES = {
+      contribPerJob: contrib, freq: v.freq, ticket: rev, churn: churn,
+      fixed: v.fixed, sales: v.sales, mgr: v.mgr, goal: v.goal,
+      perCustomer: contrib * v.freq, hoursEach: hoursEach, crew: v.crew,
+      needContrib: needContrib
+    };
+
+    computeComm();
+    computeRunway();
+  }
+
+  KEYS.forEach(function (k) {
+    document.getElementById("k-" + k).addEventListener("input", function () {
+      document.getElementById("p-written").setAttribute("aria-pressed", "false");
+      document.getElementById("p-suggested").setAttribute("aria-pressed", "false");
+      computeRes();
+    });
+  });
+  function applyPreset(name) {
+    var p = PRESETS[name];
+    KEYS.forEach(function (k) { document.getElementById("k-" + k).value = p[k]; });
+    document.getElementById("p-written").setAttribute("aria-pressed", String(name === "written"));
+    document.getElementById("p-suggested").setAttribute("aria-pressed", String(name === "suggested"));
+    computeRes();
+  }
+  document.getElementById("p-written").addEventListener("click", function () { applyPreset("written"); });
+  document.getElementById("p-suggested").addEventListener("click", function () { applyPreset("suggested"); });
+
+  /* ---------------- commercial ---------------- */
+  var CKEYS = ["sqft","eff","fixtures","rooms","visits","wage","burden","labor","contracts","comm","resid","book"];
+  var BOOK_RATE = 4000;
+
+  function suggestedEff(sqft) {
+    var r = Math.log(Math.max(sqft, 2000) / 2000) / Math.log(20);
+    return Math.round((0.35 + 0.65 * Math.min(1, r)) * 100);
+  }
+
+  function computeComm() {
+    var c = {};
+    CKEYS.forEach(function (k) { c[k] = num("c-" + k); });
+
+    var sug = suggestedEff(c.sqft);
+    txt("v-c-sqft",   c.sqft.toLocaleString() + " sq ft");
+    txt("v-c-eff",    c.eff + "% of book");
+    txt("h-c-eff",    "Book rate is " + BOOK_RATE.toLocaleString() + " sq ft/hr. At this size, expect about " +
+                      sug + "% of it — roughly " + Math.round(BOOK_RATE * c.eff / 100).toLocaleString() + " sq ft/hr as set.");
+    txt("v-c-fixtures", c.fixtures + "");
+    txt("v-c-rooms",    c.rooms + "");
+    txt("v-c-visits",   c.visits + "× / week");
+    txt("v-c-wage",     money(c.wage, 2) + "/hr");
+    txt("v-c-burden",   c.burden + "%");
+    txt("v-c-labor",    c.labor + "% of price");
+    txt("v-c-contracts", c.contracts + "/mo");
+    txt("v-c-comm",     c.comm + "% of month 1");
+    txt("v-c-resid",    c.resid.toFixed(1) + "% ongoing");
+    txt("v-c-book",     c.book === 0 ? "none" : c.book + " contract" + (c.book === 1 ? "" : "s"));
+
+    var floorHrs  = c.sqft / (BOOK_RATE * c.eff / 100);
+    var restHrs   = (c.fixtures * 3.5 + c.rooms * 6) / 60;
+    var hpv       = floorHrs + restHrs;
+    var visitsMo  = c.visits * 4.333;
+    var hpm       = hpv * visitsMo;
+    var labor     = hpm * c.wage * (1 + c.burden / 100);
+    var price     = labor / (c.labor / 100);
+    var supplies  = price * 0.03;
+    var contrib   = price - labor - supplies;
+    var bill      = hpm > 0 ? price / hpm : 0;
+    var psf       = c.sqft > 0 ? price / c.sqft : 0;
+
+    set("o-c-price",   money(price) + "/mo");
+    set("o-c-hpv",     hpv.toFixed(1) + " hrs");
+    set("o-c-hpm",     hpm.toFixed(0) + " hrs");
+    set("o-c-labor",   "-" + money(labor));
+    set("o-c-supp",    "-" + money(supplies));
+    set("o-c-contrib", money(contrib), contrib > 0 ? "good" : "bad");
+    set("o-c-bill",    money(bill, 2) + "/hr", bill > 52 ? "warn" : (bill < 34 ? "bad" : "good"));
+    set("o-c-psf",     "$" + psf.toFixed(3), "");
+
+    var equiv = RES.perCustomer > 0 ? contrib / RES.perCustomer : 0;
+    var ev = document.getElementById("o-c-equiv");
+    ev.textContent = equiv.toFixed(1).replace(/\.0$/, "");
+    ev.style.color = equiv >= 4 ? "var(--ledger)" : equiv >= 2 ? "var(--amber)" : "var(--red)";
+    txt("o-c-equivsub", "residential customers of contribution — from one close, at " +
+        money(RES.perCustomer) + "/mo each");
+
+    txt("o-c-clientprice", money(price));
+    txt("o-c-clientsub", c.visits + " visits per week · " + c.sqft.toLocaleString() +
+        " sq ft · " + c.rooms + " restrooms · all labour, supplies and insurance included");
+
+    if (bill > 52) {
+      verdict("o-c-verdict", "no", "At " + money(bill, 2) + "/hr you are well above the ~$42 KC mid-market bill rate. That is a premium position — you can hold it, but only on the same-cleaner guarantee, not on a cold call.");
+    } else if (bill < 34) {
+      verdict("o-c-verdict", "no", "At " + money(bill, 2) + "/hr you are bidding under the market. Check the speed slider — an optimistic production rate is the classic way to sign a losing contract.");
+    } else {
+      verdict("o-c-verdict", "ok", money(bill, 2) + "/hr sits in the KC range around $42 mid. Per square foot that is $" + psf.toFixed(3) + " per month — compare that against published monthly rates, never per-visit ones.");
+    }
+
+    /* rep earnings */
+    var newComm  = c.contracts * price * c.comm / 100;
+    var addResid = c.contracts * price * c.resid / 100;
+    var decay    = 0.983;
+    function repAt(m) {
+      var bookVal = 0;
+      for (var i = 0; i < m; i++) { bookVal = bookVal * decay + addResid; }
+      return newComm + bookVal;
+    }
+    var m1 = repAt(1), m12 = repAt(12), m24 = repAt(24);
+    set("o-c-m1",  money(m1) + "/mo", m1 >= 1540 ? "good" : "warn");
+    set("o-c-m12", money(m12) + "/mo", m12 >= 1540 ? "good" : "warn");
+    set("o-c-m24", money(m24) + "/mo", m24 >= 1540 ? "good" : "warn");
+
+    var cross = 0;
+    for (var mm = 1; mm <= 60; mm++) { if (repAt(mm) >= 1540) { cross = mm; break; } }
+    if (cross === 0) {
+      verdict("o-c-repverdict", "no", "At these settings commercial never overtakes the residential comp plan. Raise the commission, the residual, or the close rate — or the contract is too small to be worth a rep.");
+    } else {
+      verdict("o-c-repverdict", "ok", "Commercial passes the flat residential comp in month " + cross +
+        ", and keeps climbing after it. The residual is the difference: residential pays once per customer, commercial pays every month the contract lives.");
+    }
+
+    /* combined against the goal */
+    var commContribTotal = contrib * c.book;
+    var remaining = RES.needContrib - commContribTotal;
+    var custNeeded = RES.perCustomer > 0 ? Math.max(0, remaining / RES.perCustomer) : Infinity;
+    var resRev = custNeeded * RES.freq * RES.ticket;
+    var mixRev = resRev + price * c.book;
+    var resFte = custNeeded * RES.freq * RES.hoursEach * RES.crew / 160;
+    var commFte = hpm * c.book / 160;
+
+    var mv = document.getElementById("o-mix-cust");
+    mv.textContent = isFinite(custNeeded) ? Math.round(custNeeded).toLocaleString() : "—";
+    mv.style.color = custNeeded > 200 ? "var(--red)" : custNeeded > 130 ? "var(--amber)" : "var(--ledger)";
+    var alone = RES.perCustomer > 0 ? Math.round(RES.needContrib / RES.perCustomer) : 0;
+    txt("o-mix-sub", "down from " + alone.toLocaleString() + " on residential alone");
+
+    set("o-mix-comm", money(commContribTotal) + "/mo");
+    set("o-mix-res",  money(Math.max(0, remaining)) + "/mo");
+    set("o-mix-rev",  money(mixRev) + "/mo");
+    set("o-mix-fte",  (resFte + commFte).toFixed(1));
+
+    if (c.book === 0) {
+      verdict("o-mix-verdict", "no", "No commercial at all: " + alone.toLocaleString() +
+        " residential customers carry the whole goal, and there is nothing large enough to pay a salesperson on.");
+    } else if (custNeeded <= 0) {
+      verdict("o-mix-verdict", "ok", "Commercial alone clears the target at " + c.book +
+        " contracts. Keep building residential anyway — it is the route density and the resale value.");
+    } else {
+      verdict("o-mix-verdict", "ok", c.book + " contract" + (c.book === 1 ? "" : "s") + " plus " +
+        Math.round(custNeeded).toLocaleString() + " residential customers reaches " + money(RES.goal) +
+        "/mo. Commercial does " + Math.round(commContribTotal / RES.needContrib * 100) + "% of the lifting.");
+    }
+  }
+
+  CKEYS.forEach(function (k) {
+    document.getElementById("c-" + k).addEventListener("input", computeComm);
+  });
+  document.getElementById("c-sqft").addEventListener("change", function () {
+    var e = document.getElementById("c-eff");
+    e.value = suggestedEff(num("c-sqft"));
+    computeComm();
+  });
+
+  var mi = document.getElementById("m-internal"), mc = document.getElementById("m-client");
+  function mode(client) {
+    mi.setAttribute("aria-pressed", String(!client));
+    mc.setAttribute("aria-pressed", String(client));
+    document.getElementById("panel-internal").hidden = client;
+    document.getElementById("panel-client").hidden = !client;
+  }
+  mi.addEventListener("click", function () { mode(false); });
+  mc.addEventListener("click", function () { mode(true); });
+
+  /* ---------------- runway ---------------- */
+  var RKEYS = ["capital","setup","new"];
+  function computeRunway() {
+    var capital = num("r-capital"), setup = num("r-setup"), newPer = num("r-new");
+    txt("v-r-capital", money(capital));
+    txt("v-r-setup",   money(setup));
+    txt("v-r-new",     newPer + "/mo");
+
+    var burn = RES.fixed + RES.sales + RES.mgr;
+    var cash = capital - setup;
+    var customers = 0, lowest = cash, lowestMonth = 0, breakMonth = 0, cumDeficit = 0, worstCum = 0;
+
+    for (var m = 1; m <= 48; m++) {
+      customers = customers * (1 - RES.churn) + newPer;
+      var net = customers * RES.perCustomer - burn;
+      if (net >= 0 && breakMonth === 0) breakMonth = m;
+      cash += net;
+      cumDeficit += net;
+      if (cumDeficit < worstCum) worstCum = cumDeficit;
+      if (cash < lowest) { lowest = cash; lowestMonth = m; }
+    }
+
+    var hv = document.getElementById("o-r-hole");
+    hv.textContent = money(lowest);
+    hv.style.color = lowest < 0 ? "var(--red)" : lowest < 2000 ? "var(--amber)" : "var(--ledger)";
+    txt("o-r-holesub", lowestMonth === 0
+      ? "the account never dips below where it starts"
+      : "lowest point, month " + lowestMonth + " after launch");
+
+    set("o-r-break", breakMonth === 0 ? "not within 4 years" : "month " + breakMonth,
+        breakMonth === 0 ? "bad" : breakMonth > 12 ? "warn" : "good");
+    var need = setup - worstCum;
+    set("o-r-need", money(need), need > capital ? "bad" : "good");
+    set("o-r-burn", money(burn) + "/mo", burn > 4000 ? "warn" : "");
+
+    if (breakMonth === 0) {
+      verdict("o-r-verdict", "no", "At " + newPer + " new customers a month this never turns cash-positive. The overhead is bigger than the growth rate can carry.");
+    } else if (need > capital) {
+      verdict("o-r-verdict", "no", "This needs " + money(need) + " to reach month " + breakMonth +
+        ", and you are starting with " + money(capital) + ". Short by " + money(need - capital) +
+        " — cut the overhead, delay the sales seat, or raise more before launch.");
+    } else {
+      verdict("o-r-verdict", "ok", money(need) + " of capital covers it. Cash-positive in month " + breakMonth +
+        ", deepest dip " + money(lowest) + " in month " + lowestMonth + ".");
+    }
+  }
+  RKEYS.forEach(function (k) {
+    document.getElementById("r-" + k).addEventListener("input", computeRunway);
+  });
+
+  /* ---------------- boot ---------------- */
+  document.getElementById("c-eff").value = suggestedEff(num("c-sqft"));
+  applyPreset("suggested");
+  show(startTab);
+})();
+</script>
+
+<script>
+(function () {
+  "use strict";
+  var KEY = "bsl-notes";
+  var TABS = { over:"Overview", markup:"Markup", numbers:"Numbers", res:"Residential", comm:"Commercial", edge:"Edge" };
+  var notes = [];
+  var kind = "note";
+
+  function el(id) { return document.getElementById(id); }
+
+  function load() {
+    try { var r = localStorage.getItem(KEY); notes = r ? JSON.parse(r) : []; }
+    catch (e) { notes = []; }
+    if (!Array.isArray(notes)) notes = [];
+  }
+  function save() { try { localStorage.setItem(KEY, JSON.stringify(notes)); } catch (e) {} }
+
+  function currentTab() {
+    var sel = document.querySelector('.tab[aria-selected="true"]');
+    if (!sel) return "";
+    return TABS[sel.id.replace("t-", "")] || "";
+  }
+
+  function render() {
+    var list = el("n-list");
+    list.textContent = "";
+    if (!notes.length) {
+      var e = document.createElement("p");
+      e.className = "nempty";
+      e.textContent = "No notes yet.";
+      list.appendChild(e);
+    } else {
+      notes.forEach(function (n, i) {
+        var d = document.createElement("div");
+        d.className = "nitem" + (n.kind === "prompt" ? " prompt" : "");
+        var meta = document.createElement("div");
+        meta.className = "nmeta";
+        var tag = document.createElement("span");
+        tag.className = "ntag" + (n.kind === "prompt" ? " p" : "");
+        tag.textContent = n.kind === "prompt" ? "To run" : (n.tab || "Note");
+        meta.appendChild(tag);
+        if (n.kind === "prompt" && n.tab) {
+          var t2 = document.createElement("span");
+          t2.className = "ntag";
+          t2.textContent = n.tab;
+          meta.appendChild(t2);
+        }
+        var when = document.createElement("span");
+        when.className = "nwhen";
+        when.textContent = n.when || "";
+        meta.appendChild(when);
+        var del = document.createElement("button");
+        del.className = "ndel";
+        del.setAttribute("aria-label", "Delete note");
+        del.textContent = "×";
+        del.addEventListener("click", function () { notes.splice(i, 1); save(); render(); });
+        meta.appendChild(del);
+        var p = document.createElement("p");
+        p.className = "ntext";
+        p.textContent = n.text;
+        d.appendChild(meta);
+        d.appendChild(p);
+        list.appendChild(d);
+      });
+    }
+    var b = el("n-badge");
+    b.textContent = String(notes.length);
+    b.hidden = notes.length === 0;
+  }
+
+  function setKind(k) {
+    kind = k;
+    el("n-kind-note").setAttribute("aria-pressed", String(k === "note"));
+    el("n-kind-prompt").setAttribute("aria-pressed", String(k === "prompt"));
+  }
+
+  function open(on) {
+    el("n-sheet").hidden = !on;
+    el("n-backdrop").hidden = !on;
+    try { document.body.style.overflow = on ? "hidden" : ""; } catch (e) {}
+    if (on) {
+      render();
+      setTimeout(function () { try { el("n-text").focus(); } catch (e) {} }, 60);
+    }
+  }
+
+  function add() {
+    var ta = el("n-text");
+    var v = (ta.value || "").trim();
+    if (!v) return;
+    var now = new Date();
+    notes.unshift({
+      text: v,
+      kind: kind,
+      tab: currentTab(),
+      when: now.toLocaleDateString(undefined, { month: "short", day: "numeric" }) + " " +
+            now.toLocaleTimeString(undefined, { hour: "numeric", minute: "2-digit" })
+    });
+    ta.value = "";
+    setKind("note");
+    save();
+    render();
+  }
+
+  function asText() {
+    var out = "Notes on the Blue Springs Ledger - " + new Date().toLocaleDateString() + "\n\n";
+    notes.slice().reverse().forEach(function (n) {
+      out += "[" + (n.tab || "General") + (n.kind === "prompt" ? " - TO RUN" : "") + "] " + n.text + "\n\n";
+    });
+    return out;
+  }
+
+  function flash(btn, msg) {
+    var old = btn.getAttribute("data-label") || btn.textContent;
+    btn.setAttribute("data-label", old);
+    btn.textContent = msg;
+    btn.classList.add("done");
+    setTimeout(function () { btn.textContent = old; btn.classList.remove("done"); }, 1600);
+  }
+
+  function copyAll() {
+    var btn = el("n-copy");
+    if (!notes.length) { flash(btn, "Nothing yet"); return; }
+    var text = asText();
+    function fallback() {
+      try {
+        var ta = document.createElement("textarea");
+        ta.value = text;
+        ta.style.position = "fixed";
+        ta.style.opacity = "0";
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand("copy");
+        document.body.removeChild(ta);
+        flash(btn, "Copied");
+      } catch (e) { flash(btn, "Copy failed"); }
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(function () { flash(btn, "Copied"); }, fallback);
+    } else { fallback(); }
+  }
+
+  el("n-open").addEventListener("click", function () { open(true); });
+  el("n-close").addEventListener("click", function () { open(false); });
+  el("n-backdrop").addEventListener("click", function () { open(false); });
+  el("n-add").addEventListener("click", add);
+  el("n-kind-note").addEventListener("click", function () { setKind("note"); });
+  el("n-kind-prompt").addEventListener("click", function () { setKind("prompt"); });
+  el("n-copy").addEventListener("click", copyAll);
+  el("n-clear").addEventListener("click", function () {
+    if (!notes.length) return;
+    if (window.confirm("Delete all " + notes.length + " note(s)? This cannot be undone.")) {
+      notes = [];
+      save();
+      render();
+    }
+  });
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && !el("n-sheet").hidden) open(false);
+  });
+
+  load();
+  render();
+})();
+</script>
+
+<script>
+(function () {
+  "use strict";
+  var bar = document.querySelector(".bar");
+  var tabs = document.querySelector(".tabs");
+  if (!bar || !tabs) return;
+
+  function update() {
+    var scrollable = tabs.scrollWidth > tabs.clientWidth + 1;
+    var atEnd = tabs.scrollLeft >= tabs.scrollWidth - tabs.clientWidth - 2;
+    bar.classList.toggle("more", scrollable && !atEnd);
+  }
+
+  function centre(el, smooth) {
+    if (!el || !el.scrollIntoView) return;
+    try {
+      el.scrollIntoView({ inline: "center", block: "nearest",
+                          behavior: smooth ? "smooth" : "auto" });
+    } catch (e) {
+      try { el.scrollIntoView(); } catch (e2) {}
+    }
+  }
+
+  tabs.addEventListener("scroll", update, { passive: true });
+  window.addEventListener("resize", update);
+  tabs.addEventListener("click", function (e) {
+    var t = e.target && e.target.closest ? e.target.closest(".tab") : null;
+    if (t) centre(t, true);
+    setTimeout(update, 420);
+  });
+
+  centre(document.querySelector('.tab[aria-selected="true"]'), false);
+  update();
+  setTimeout(update, 300);
+})();
+</script>
+</body>
+</html>
