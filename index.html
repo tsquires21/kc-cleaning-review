@@ -292,6 +292,10 @@
     color:var(--accent-dk); background:var(--bubble);
     box-shadow:inset 0 -10px 22px rgba(14,134,168,.10), 0 8px 24px rgba(14,134,168,.16); }
   .bsub { font-size:12.5px; color:var(--ink-faint); margin:13px 0 0; line-height:1.45; }
+  /* one shout per screen: a quiet variant for secondary headline figures */
+  .bv.quiet { min-width:0; height:auto; padding:0; border-radius:0; background:none;
+    box-shadow:none; font-size:clamp(30px,7.5vw,38px); color:var(--ink); }
+  .bignum.tight { padding-top:0; }
   .verdictline { margin-top:13px; padding:12px 15px; border-radius:12px; font-size:13.5px;
     line-height:1.5; }
   .verdictline.ok { background:var(--ledger-bg); color:#0A6B4A; }
@@ -332,7 +336,9 @@
     background:radial-gradient(circle at 33% 27%, #FFFFFF 0 12%, #CFEEF7 30%, var(--accent) 100%);
     color:var(--on-accent); box-shadow:0 6px 20px rgba(14,134,168,.42); cursor:pointer;
     font-family:Outfit,sans-serif; font-size:10.5px; font-weight:700; letter-spacing:.06em; }
-  .fab:focus-visible { outline:3px solid var(--accent-dk); outline-offset:3px; }
+  .fab { transition:opacity .22s ease; }
+  .fab.dim { opacity:.28; }
+  .fab:focus-visible { outline:3px solid var(--accent-dk); outline-offset:3px; opacity:1; }
   .fab .badge { position:absolute; top:-4px; right:-4px; min-width:24px; height:24px;
     border-radius:999px; background:var(--amber); color:#FFFFFF; font-family:"IBM Plex Mono",monospace;
     font-size:11.5px; font-weight:600; line-height:20px; padding:0 6px; border:2px solid var(--paper); }
@@ -394,6 +400,92 @@
   .nbtn:focus-visible { outline:2px solid var(--accent); outline-offset:2px; }
   .nbtn.done { background:var(--ledger); border-color:var(--ledger); color:var(--on-ledger); }
 
+  /* ---------------- sticky KPI band (top row = answer) ---------------- */
+  .kpibar { position:sticky; top:var(--navh,46px); z-index:40; margin:0 0 16px;
+    display:grid; grid-template-columns:repeat(3,1fr); gap:1px;
+    background:var(--rule-soft); border:1px solid var(--rule-soft); border-radius:14px;
+    overflow:hidden; box-shadow:0 4px 14px rgba(14,134,168,.10); }
+  .kpi { background:rgba(255,255,255,.94); -webkit-backdrop-filter:blur(10px);
+    backdrop-filter:blur(10px); padding:9px 8px 10px; text-align:center; min-width:0; }
+  .kpi .kl { display:block; font-family:"IBM Plex Mono",monospace; font-size:8.5px;
+    letter-spacing:.09em; text-transform:uppercase; color:var(--ink-faint);
+    white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .kpi .kv { display:block; margin-top:4px; font-family:"IBM Plex Mono",monospace;
+    font-size:clamp(17px,4.6vw,21px); font-weight:600; line-height:1.1;
+    font-variant-numeric:tabular-nums; letter-spacing:-.02em; color:var(--ink);
+    white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .kpi.good .kv { color:var(--ledger); }
+  .kpi.warn .kv { color:var(--amber); }
+  .kpi.bad  { background:rgba(251,231,230,.96); }
+  .kpi.bad .kv { color:var(--red); }
+  .kpi .kn { display:block; margin-top:2px; font-size:9.5px; color:var(--ink-faint);
+    white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  @media (min-width:560px) {
+    .kpi { padding:11px 12px 12px; }
+    .kpi .kl { font-size:9.5px; } .kpi .kn { font-size:10.5px; }
+  }
+
+  /* ---------------- collapsible control groups ---------------- */
+  details.group > summary { list-style:none; cursor:pointer; display:flex; align-items:center;
+    gap:9px; font-family:"IBM Plex Mono",monospace; font-size:10.5px; letter-spacing:.13em;
+    text-transform:uppercase; color:var(--accent-dk); font-weight:600;
+    padding-bottom:8px; border-bottom:1px solid var(--rule-soft); }
+  details.group > summary::-webkit-details-marker { display:none; }
+  details.group > summary::after { content:""; margin-left:auto; width:9px; height:9px;
+    border-right:2px solid var(--accent); border-bottom:2px solid var(--accent);
+    transform:rotate(45deg) translate(-2px,-2px); transition:transform .18s; }
+  details.group[open] > summary::after { transform:rotate(-135deg) translate(-3px,-3px); }
+  details.group > summary:focus-visible { outline:2px solid var(--accent); outline-offset:3px;
+    border-radius:6px; }
+  details.group > summary .cnt { font-family:Figtree,sans-serif; font-size:10.5px;
+    letter-spacing:0; text-transform:none; color:var(--ink-faint); font-weight:500; }
+  details.group[open] > summary .cnt { display:none; }
+  details.group > .gbody { padding-top:6px; }
+
+  /* ---------------- sections menu ---------------- */
+  .allsec { flex:0 0 auto; align-self:center; appearance:none; cursor:pointer;
+    display:flex; align-items:center; gap:6px; margin-left:2px;
+    background:var(--surface); border:1px solid var(--rule); border-radius:999px;
+    padding:8px 13px; color:var(--accent-dk); font-family:Outfit,sans-serif;
+    font-size:12px; font-weight:600; box-shadow:0 1px 4px rgba(13,36,48,.06); }
+  .allsec:focus-visible { outline:2px solid var(--accent); outline-offset:2px; }
+  .allsec .bars { display:inline-flex; flex-direction:column; gap:2.5px; }
+  .allsec .bars i { display:block; width:13px; height:2px; border-radius:2px;
+    background:var(--accent); }
+  .allsec .lbl { display:none; }
+  @media (min-width:420px) { .allsec .lbl { display:inline; } }
+
+  .seclist { display:flex; flex-direction:column; gap:8px; }
+  .secrow { display:flex; align-items:flex-start; gap:12px; width:100%; text-align:left;
+    appearance:none; cursor:pointer; background:var(--surface);
+    border:1px solid var(--rule-soft); border-radius:14px; padding:13px 14px;
+    box-shadow:0 1px 3px rgba(13,36,48,.04); }
+  .secrow:focus-visible { outline:2px solid var(--accent); outline-offset:2px; }
+  .secrow[aria-current="true"] { border-color:var(--accent); background:var(--accent-bg); }
+  .secrow .sl { flex:0 0 auto; width:26px; height:26px; border-radius:50%; background:var(--bubble);
+    font-family:"IBM Plex Mono",monospace; font-size:11px; font-weight:600; color:var(--accent-dk);
+    display:flex; align-items:center; justify-content:center; margin-top:1px; }
+  .secrow .sn { font-family:Outfit,sans-serif; font-weight:600; font-size:15px;
+    letter-spacing:-.01em; margin:0 0 2px; }
+  .secrow .sd { font-size:12.5px; color:var(--ink-soft); margin:0; line-height:1.45; }
+
+  /* ---------------- runway chart ---------------- */
+  .chartwrap { margin:14px 0 4px; }
+  .charttitle { font-family:Outfit,sans-serif; font-size:14.5px; font-weight:600;
+    letter-spacing:-.01em; margin:0 0 2px; }
+  .chartsub { font-size:12px; color:var(--ink-faint); margin:0 0 10px; }
+  .chart { width:100%; height:172px; display:block; touch-action:pan-y; }
+  .chart .grid { stroke:var(--rule-soft); stroke-width:1; }
+  .chart .zero { stroke:var(--ink-faint); stroke-width:1; stroke-dasharray:3 3; }
+  .chart .axis { fill:var(--ink-faint); font-family:"IBM Plex Mono",monospace; font-size:9px; }
+  .chart .lbl  { fill:var(--ink); font-family:"IBM Plex Mono",monospace; font-size:10px; font-weight:600; }
+  .chart .crosshair { stroke:var(--accent); stroke-width:1; opacity:.55; }
+  .chartTip { position:absolute; pointer-events:none; background:var(--ink); color:#fff;
+    font-family:"IBM Plex Mono",monospace; font-size:11px; padding:6px 9px; border-radius:8px;
+    white-space:nowrap; transform:translate(-50%,-130%); opacity:0; transition:opacity .12s;
+    box-shadow:0 4px 14px rgba(13,36,48,.28); }
+  .chartHost { position:relative; }
+
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { transition:none !important; animation:none !important; }
   }
@@ -425,6 +517,9 @@
       <button class="tab" role="tab" id="t-edge" aria-controls="s-edge" aria-selected="false">Edge</button>
       <button class="tab" role="tab" id="t-tech" aria-controls="s-tech" aria-selected="false">Tech</button>
     </div>
+    <button class="allsec" id="sec-open" aria-label="All sections">
+      <span class="bars" aria-hidden="true"><i></i><i></i><i></i></span><span class="lbl">All</span>
+    </button>
   </div>
 </div>
 
@@ -708,6 +803,13 @@
           <div class="verdictline" id="o-r-verdict"></div>
         </div>
       </div>
+      <div class="chartwrap chartHost">
+        <p class="charttitle" id="o-r-charttitle">Cash on hand, month by month</p>
+        <p class="chartsub">The line is the bank balance. Below the dashed line you are borrowing.</p>
+        <svg class="chart" id="o-r-chart" viewBox="0 0 640 172" preserveAspectRatio="none"
+             role="img" aria-labelledby="o-r-charttitle"></svg>
+        <div class="chartTip" id="o-r-tip"></div>
+      </div>
     </div>
 
     <!-- ---------- PROVENANCE ---------- -->
@@ -767,6 +869,12 @@
   <div class="stitle"><span class="sletter">C</span><h2>Residential calculator</h2></div>
   <p class="lede">Every assumption is a slider. Everything re-solves as you move them &mdash; including whether the pay model clears the Missouri wage floor.</p>
 
+  <div class="kpibar" id="kpi-res" aria-live="polite">
+    <div class="kpi"><span class="kl">Customers needed</span><span class="kv" id="kp-r-cust">&mdash;</span><span class="kn" id="kp-r-custn">&nbsp;</span></div>
+    <div class="kpi"><span class="kl">Cleaner earns</span><span class="kv" id="kp-r-wage">&mdash;</span><span class="kn" id="kp-r-wagen">&nbsp;</span></div>
+    <div class="kpi"><span class="kl">Margin per job</span><span class="kv" id="kp-r-margin">&mdash;</span><span class="kn" id="kp-r-marginn">&nbsp;</span></div>
+  </div>
+
   <div class="presets">
     <span class="plabel">Start from</span>
     <button class="pre" id="p-written" aria-pressed="false">Plan as written</button>
@@ -799,8 +907,9 @@
         </div>
       </div>
 
-      <div class="card">
-        <h3 style="margin-top:0;">Costs</h3>
+      <details class="card group">
+        <summary>Costs <span class="cnt">5 settings</span></summary>
+        <div class="gbody">
         <div class="knob">
           <div class="knobtop"><label for="k-pool">Cleaner labor pool</label><span class="knobval" id="v-pool"></span></div>
           <input type="range" id="k-pool" min="25" max="55" step="1">
@@ -822,9 +931,11 @@
           <input type="range" id="k-mgr" min="0" max="7000" step="250">
         </div>
       </div>
+      </details>
 
-      <div class="card">
-        <h3 style="margin-top:0;">The goal</h3>
+      <details class="card group" open>
+        <summary>The goal <span class="cnt">2 settings</span></summary>
+        <div class="gbody">
         <div class="knob">
           <div class="knobtop"><label for="k-churn">Monthly customer churn</label><span class="knobval" id="v-churn"></span></div>
           <input type="range" id="k-churn" min="2" max="14" step="0.1">
@@ -833,7 +944,8 @@
           <div class="knobtop"><label for="k-goal">Owner income target (Kaleb, 80%)</label><span class="knobval" id="v-goal"></span></div>
           <input type="range" id="k-goal" min="2000" max="20000" step="250">
         </div>
-      </div>
+        </div>
+      </details>
     </div>
 
     <div class="stack">
@@ -879,6 +991,12 @@
   <div class="stitle"><span class="sletter">D</span><h2>Commercial bid calculator</h2></div>
   <p class="lede">(A.12) called commercial pricing the major unresolved item, and (A.5) sent the rep to sell it anyway. This closes that gap: bid from labor hours up, then check the result against market.</p>
 
+  <div class="kpibar" id="kpi-comm" aria-live="polite">
+    <div class="kpi"><span class="kl">Monthly price</span><span class="kv" id="kp-c-price">&mdash;</span><span class="kn" id="kp-c-pricen">&nbsp;</span></div>
+    <div class="kpi"><span class="kl">Worth this many homes</span><span class="kv" id="kp-c-equiv">&mdash;</span><span class="kn" id="kp-c-equivn">&nbsp;</span></div>
+    <div class="kpi"><span class="kl">Bill rate</span><span class="kv" id="kp-c-bill">&mdash;</span><span class="kn" id="kp-c-billn">&nbsp;</span></div>
+  </div>
+
   <div class="stack">
     <div class="callout bad">
       <span class="kicker">Read this before quoting anything</span>
@@ -923,8 +1041,9 @@
           </div>
         </div>
 
-        <div class="card">
-          <h3 style="margin-top:0;">Your costs</h3>
+        <details class="card group">
+          <summary>Your costs <span class="cnt">3 settings</span></summary>
+          <div class="gbody">
           <div class="knob">
             <div class="knobtop"><label for="c-wage">Cleaner wage</label><span class="knobval" id="v-c-wage"></span></div>
             <input type="range" id="c-wage" min="15" max="26" step="0.25" value="17">
@@ -939,7 +1058,8 @@
             <input type="range" id="c-labor" min="35" max="60" step="1" value="45">
             <p class="knobhint">45% is the janitorial norm &mdash; higher than residential.</p>
           </div>
-        </div>
+          </div>
+        </details>
       </div>
 
       <div class="stack">
@@ -964,7 +1084,7 @@
           <span class="kicker gr">Proposal &mdash; what goes to the client</span>
           <div class="bignum">
             <span class="bk">Monthly service</span>
-            <span class="bv" id="o-c-clientprice"></span>
+            <span class="bv quiet" id="o-c-clientprice"></span>
             <p class="bsub" id="o-c-clientsub"></p>
           </div>
           <div class="roline"><span class="rk">Term</span><span class="rv">12 months, auto-renew</span></div>
@@ -1020,7 +1140,7 @@
         <div>
           <div class="bignum">
             <span class="bk">Residential customers still needed</span>
-            <span class="bv" id="o-mix-cust"></span>
+            <span class="bv quiet" id="o-mix-cust"></span>
             <p class="bsub" id="o-mix-sub"></p>
           </div>
           <div class="roline"><span class="rk">Contribution from commercial</span><span class="rv" id="o-mix-comm"></span></div>
@@ -1233,6 +1353,21 @@
 </main>
 
 
+
+<div class="nbackdrop" id="sec-backdrop" hidden></div>
+<aside class="nsheet" id="sec-sheet" hidden aria-label="All sections">
+  <div class="nhead">
+    <div>
+      <div class="ntitle">All sections</div>
+      <p class="nsub">Seven screens. Tap one to jump straight to it.</p>
+    </div>
+    <button class="nclose" id="sec-close" aria-label="Close section list">&times;</button>
+  </div>
+  <div class="nbody">
+    <div class="seclist" id="sec-list"></div>
+  </div>
+</aside>
+
 <button class="fab" id="n-open" aria-label="Open notes">NOTES<span class="badge" id="n-badge" hidden>0</span></button>
 
 <div class="nbackdrop" id="n-backdrop" hidden></div>
@@ -1311,6 +1446,16 @@
     n.className = "rv" + (cls ? " " + cls : "");
   }
   function txt(id, s) { var n = document.getElementById(id); if (n) n.textContent = s; }
+  function kpi(_unused, valId, noteId, value, note, state) {
+    var v = document.getElementById(valId);
+    var n = document.getElementById(noteId);
+    if (v) {
+      v.textContent = value;
+      if (v.parentNode) v.parentNode.className = "kpi" + (state ? " " + state : "");
+    }
+    if (n) n.textContent = note || "\u00a0";
+  }
+
   function verdict(id, cls, s) {
     var n = document.getElementById(id);
     if (!n) return;
@@ -1416,6 +1561,20 @@
         " full-time cleaners, roughly " + months + " months of steady growth at 8 new a month.");
     }
 
+    /* top row = answer (dashboard-design-guide.html, section 03) */
+    kpi("kp-r-cust", "kp-r-cust", "kp-r-custn",
+        isFinite(cust) ? Math.round(cust).toLocaleString() : "never",
+        isFinite(cust) ? "for " + money(v.goal) + "/mo" : "at these settings",
+        !isFinite(cust) || cust > 200 ? "bad" : cust > 130 ? "warn" : "good");
+    kpi("kp-r-wage", "kp-r-wage", "kp-r-wagen",
+        money(hourlyEach, 2) + "/hr",
+        hourlyEach < 15 ? "under MO floor" : hourlyEach < 21 ? "under market" : "above market",
+        hourlyEach < 15 ? "bad" : hourlyEach < 21 ? "warn" : "good");
+    kpi("kp-r-margin", "kp-r-margin", "kp-r-marginn",
+        (margin * 100).toFixed(1) + "%",
+        money(contrib, 0) + " a visit",
+        contrib <= 0 ? "bad" : margin < 0.30 ? "warn" : "good");
+
     RES = {
       contribPerJob: contrib, freq: v.freq, ticket: rev, churn: churn,
       fixed: v.fixed, sales: v.sales, mgr: v.mgr, goal: v.goal,
@@ -1513,6 +1672,14 @@
       verdict("o-c-verdict", "ok", money(bill, 2) + "/hr sits in the KC range around $42 mid. Per square foot that is $" + psf.toFixed(3) + " per month — compare that against published monthly rates, never per-visit ones.");
     }
 
+    kpi(0, "kp-c-price", "kp-c-pricen", money(price), "per month, flat",
+        contrib > 0 ? "good" : "bad");
+    kpi(0, "kp-c-equiv", "kp-c-equivn", equiv.toFixed(1).replace(/\.0$/, ""),
+        "residential customers", equiv >= 4 ? "good" : equiv >= 2 ? "warn" : "bad");
+    kpi(0, "kp-c-bill", "kp-c-billn", money(bill, 0) + "/hr",
+        bill > 52 ? "above KC market" : bill < 34 ? "under market" : "at KC market",
+        bill > 52 ? "warn" : bill < 34 ? "bad" : "good");
+
     /* rep earnings */
     var newComm  = c.contracts * price * c.comm / 100;
     var addResid = c.contracts * price * c.resid / 100;
@@ -1548,6 +1715,7 @@
     var mv = document.getElementById("o-mix-cust");
     mv.textContent = isFinite(custNeeded) ? Math.round(custNeeded).toLocaleString() : "—";
     mv.style.color = custNeeded > 200 ? "var(--red)" : custNeeded > 130 ? "var(--amber)" : "var(--ledger)";
+    mv.className = "bv quiet";
     var alone = RES.perCustomer > 0 ? Math.round(RES.needContrib / RES.perCustomer) : 0;
     txt("o-mix-sub", "down from " + alone.toLocaleString() + " on residential alone");
 
@@ -1591,6 +1759,120 @@
   mc.addEventListener("click", function () { mode(true); });
 
   /* ---------------- runway ---------------- */
+
+  var SVGNS = "http://www.w3.org/2000/svg";
+  function mk(tag, attrs) {
+    var e = document.createElementNS(SVGNS, tag);
+    for (var k in attrs) { if (Object.prototype.hasOwnProperty.call(attrs, k)) e.setAttribute(k, attrs[k]); }
+    return e;
+  }
+  var runwaySeries = [];
+
+  function drawRunway(series) {
+    var svg = document.getElementById("o-r-chart");
+    if (!svg) return;
+    while (svg.firstChild) svg.removeChild(svg.firstChild);
+    if (!series.length) return;
+
+    var W = 640, H = 172, L = 52, R = 10, T = 12, B = 22;
+    var iw = W - L - R, ih = H - T - B;
+    var lo = Math.min(0, Math.min.apply(null, series));
+    var hi = Math.max(0, Math.max.apply(null, series));
+    if (hi === lo) hi = lo + 1;
+    var pad = (hi - lo) * 0.08;
+    lo -= pad; hi += pad;
+    var x = function (i) { return L + (i / (series.length - 1)) * iw; };
+    var y = function (v) { return T + (hi - v) / (hi - lo) * ih; };
+
+    /* horizontal grid + money labels */
+    var steps = 3;
+    for (var g = 0; g <= steps; g++) {
+      var val = lo + (hi - lo) * (g / steps);
+      var yy = y(val);
+      svg.appendChild(mk("line", { x1:L, x2:W-R, y1:yy, y2:yy, "class":"grid" }));
+      var t = mk("text", { x:L-7, y:yy+3, "class":"axis", "text-anchor":"end" });
+      t.textContent = (val < 0 ? "-$" : "$") + Math.round(Math.abs(val) / 1000) + "k";
+      svg.appendChild(t);
+    }
+
+    /* area, split at zero so the borrowing half reads as trouble */
+    function area(clipTop, clipBot, fill) {
+      var d = "M " + x(0) + " " + y(series[0]);
+      for (var i = 1; i < series.length; i++) d += " L " + x(i) + " " + y(series[i]);
+      d += " L " + x(series.length - 1) + " " + y(0) + " L " + x(0) + " " + y(0) + " Z";
+      var pathEl = mk("path", { d:d, fill:fill, "clip-path":"url(#" + clipTop + ")" });
+      svg.appendChild(pathEl);
+    }
+    var defs = mk("defs", {});
+    var cA = mk("clipPath", { id:"clipPos" });
+    cA.appendChild(mk("rect", { x:0, y:0, width:W, height:Math.max(0, y(0)) }));
+    var cB = mk("clipPath", { id:"clipNeg" });
+    cB.appendChild(mk("rect", { x:0, y:Math.max(0, y(0)), width:W, height:H }));
+    defs.appendChild(cA); defs.appendChild(cB);
+    svg.appendChild(defs);
+    area("clipPos", null, "rgba(14,134,168,.16)");
+    area("clipNeg", null, "rgba(192,65,62,.18)");
+
+    /* zero line - crossing it is the whole finding */
+    svg.appendChild(mk("line", { x1:L, x2:W-R, y1:y(0), y2:y(0), "class":"zero" }));
+
+    /* the series itself, 2px */
+    var d2 = "M " + x(0) + " " + y(series[0]);
+    for (var j = 1; j < series.length; j++) d2 += " L " + x(j) + " " + y(series[j]);
+    svg.appendChild(mk("path", { d:d2, fill:"none", stroke:"#0E86A8", "stroke-width":2,
+                                 "stroke-linejoin":"round", "stroke-linecap":"round",
+                                 "vector-effect":"non-scaling-stroke" }));
+
+    /* one direct label: the trough */
+    var minV = Math.min.apply(null, series), minI = series.indexOf(minV);
+    svg.appendChild(mk("circle", { cx:x(minI), cy:y(minV), r:4.5,
+      fill: minV < 0 ? "#C0413E" : "#0E86A8", stroke:"#fff", "stroke-width":2 }));
+    var lab = mk("text", { x:Math.min(W-R-4, Math.max(L+30, x(minI))), y:y(minV) - 11,
+                           "class":"lbl", "text-anchor":"middle" });
+    lab.textContent = "low: " + (minV < 0 ? "-$" : "$") + Math.abs(Math.round(minV)).toLocaleString();
+    svg.appendChild(lab);
+
+    /* month ticks */
+    var span = series.length - 1;
+    var stepM = span <= 24 ? 6 : 12;
+    var ticks = [];
+    for (var tm = 0; tm <= span; tm += stepM) ticks.push(tm);
+    ticks.forEach(function (m) {
+      if (m >= series.length) return;
+      var t2 = mk("text", { x:x(m), y:H - 6, "class":"axis", "text-anchor":"middle" });
+      t2.textContent = m === 0 ? "launch" : "m" + m;
+      svg.appendChild(t2);
+    });
+
+    var cross = mk("line", { x1:0, x2:0, y1:T, y2:H-B, "class":"crosshair", opacity:0 });
+    svg.appendChild(cross);
+
+    var tip = document.getElementById("o-r-tip");
+    function at(evt) {
+      var box = svg.getBoundingClientRect();
+      var px = (evt.touches ? evt.touches[0].clientX : evt.clientX) - box.left;
+      var frac = px / box.width;
+      var i = Math.round(frac * (series.length - 1));
+      if (i < 0) i = 0;
+      if (i > series.length - 1) i = series.length - 1;
+      cross.setAttribute("x1", x(i)); cross.setAttribute("x2", x(i));
+      cross.setAttribute("opacity", 1);
+      if (tip) {
+        tip.style.left = (x(i) / W * box.width) + "px";
+        tip.style.top = (y(series[i]) / H * box.height) + "px";
+        tip.textContent = (i === 0 ? "launch" : "month " + i) + "  " +
+          (series[i] < 0 ? "-$" : "$") + Math.abs(Math.round(series[i])).toLocaleString();
+        tip.style.opacity = 1;
+      }
+    }
+    function off() { cross.setAttribute("opacity", 0); if (tip) tip.style.opacity = 0; }
+    svg.addEventListener("mousemove", at);
+    svg.addEventListener("mouseleave", off);
+    svg.addEventListener("touchstart", at, { passive:true });
+    svg.addEventListener("touchmove", at, { passive:true });
+    svg.addEventListener("touchend", off);
+  }
+
   var RKEYS = ["capital","setup","new"];
   function computeRunway() {
     var capital = num("r-capital"), setup = num("r-setup"), newPer = num("r-new");
@@ -1601,6 +1883,7 @@
     var burn = RES.fixed + RES.sales + RES.mgr;
     var cash = capital - setup;
     var customers = 0, lowest = cash, lowestMonth = 0, breakMonth = 0, cumDeficit = 0, worstCum = 0;
+    runwaySeries = [cash];
 
     for (var m = 1; m <= 48; m++) {
       customers = customers * (1 - RES.churn) + newPer;
@@ -1610,7 +1893,14 @@
       cumDeficit += net;
       if (cumDeficit < worstCum) worstCum = cumDeficit;
       if (cash < lowest) { lowest = cash; lowestMonth = m; }
+      runwaySeries.push(cash);
     }
+    /* Plot only the decision-relevant window. Over 48 months late growth
+       dwarfs the trough, which is the one thing this chart exists to show. */
+    var win = breakMonth > 0 ? Math.min(48, Math.max(18, breakMonth + 6)) : 48;
+    drawRunway(runwaySeries.slice(0, win + 1));
+    var ct = document.getElementById("o-r-charttitle");
+    if (ct) ct.textContent = "Cash on hand, first " + win + " months";
 
     var hv = document.getElementById("o-r-hole");
     hv.textContent = money(lowest);
@@ -1851,6 +2141,98 @@
   centre(document.querySelector('.tab[aria-selected="true"]'), false);
   update();
   setTimeout(update, 300);
+})();
+</script>
+
+<script>
+(function () {
+  "use strict";
+  /* keep the KPI band parked exactly under the nav at every breakpoint */
+  var bar = document.querySelector(".bar");
+  function navh() {
+    if (!bar) return;
+    var h = Math.round(bar.getBoundingClientRect().height);
+    if (h > 0) document.documentElement.style.setProperty("--navh", h + "px");
+  }
+  navh();
+  window.addEventListener("resize", navh);
+  window.addEventListener("load", navh);
+  if (document.fonts && document.fonts.ready && document.fonts.ready.then) {
+    document.fonts.ready.then(navh);
+  }
+
+  /* ---- all-sections sheet ---- */
+  var SECTIONS = [
+    ["over",    "",  "Overview",            "The verdict, the two findings, and the cheapest next 30 days."],
+    ["markup",  "A", "Markup",              "All twenty sections of the plan, each with a verdict."],
+    ["numbers", "B", "Numbers",             "As-written vs fixed, the runway, and where every figure came from."],
+    ["res",     "C", "Residential",         "The unit-economics model. Move a slider, watch it re-solve."],
+    ["comm",    "D", "Commercial",          "Bid a building from labour hours up, and see what it pays a rep."],
+    ["edge",    "E", "Edge",                "The same-cleaner guarantee nobody in this market claims."],
+    ["tech",    "F", "Tech",                "What we can build ourselves to keep hiring low."]
+  ];
+  var openBtn = document.getElementById("sec-open");
+  var sheet = document.getElementById("sec-sheet");
+  var back = document.getElementById("sec-backdrop");
+  var list = document.getElementById("sec-list");
+  if (!openBtn || !sheet || !back || !list) return;
+
+  function current() {
+    var sel = document.querySelector('.tab[aria-selected="true"]');
+    return sel ? sel.id.replace("t-", "") : "over";
+  }
+  function build() {
+    var now = current();
+    list.textContent = "";
+    SECTIONS.forEach(function (row) {
+      var b = document.createElement("button");
+      b.className = "secrow";
+      b.setAttribute("aria-current", String(row[0] === now));
+      var sl = document.createElement("span");
+      sl.className = "sl";
+      sl.textContent = row[1] || "\u00b7";
+      var box = document.createElement("span");
+      var n = document.createElement("p"); n.className = "sn"; n.textContent = row[2];
+      var d = document.createElement("p"); d.className = "sd"; d.textContent = row[3];
+      box.appendChild(n); box.appendChild(d);
+      b.appendChild(sl); b.appendChild(box);
+      b.addEventListener("click", function () {
+        var t = document.getElementById("t-" + row[0]);
+        if (t) t.click();
+        show(false);
+      });
+      list.appendChild(b);
+    });
+  }
+  function show(on) {
+    if (on) build();
+    sheet.hidden = !on;
+    back.hidden = !on;
+    try { document.body.style.overflow = on ? "hidden" : ""; } catch (e) {}
+  }
+  openBtn.addEventListener("click", function () { show(true); });
+  document.getElementById("sec-close").addEventListener("click", function () { show(false); });
+  back.addEventListener("click", function () { show(false); });
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && !sheet.hidden) show(false);
+  });
+})();
+</script>
+
+<script>
+(function () {
+  "use strict";
+  /* The notes button floats over the right-hand column, where every readout
+     value is. Fade it while the reader is actually scrolling so it stops
+     sitting on top of a number; it stays tappable throughout. */
+  var fab = document.querySelector(".fab");
+  if (!fab) return;
+  var t = 0;
+  window.addEventListener("scroll", function () {
+    fab.classList.add("dim");
+    clearTimeout(t);
+    t = setTimeout(function () { fab.classList.remove("dim"); }, 550);
+  }, { passive: true });
 })();
 </script>
 </body>
