@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow, noarchive">
 <meta name="color-scheme" content="light dark">
-<title>The Blue Springs Ledger</title>
+<title>Cleaning Co. Planner</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Figtree:ital,wght@0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
@@ -408,14 +408,14 @@
   </div>
   <div class="wrap">
     <div class="eyebrow">Working notes &middot; for Kaleb &amp; Tim</div>
-    <h1>The Blue&nbsp;Springs Ledger</h1>
+    <h1>Cleaning Co.&nbsp;Planner</h1>
     <p class="standfirst">A markup of the plan, the arithmetic behind it, and two calculators for working it out together.</p>
   </div>
 </header>
 
 <div class="bar">
   <div class="barin">
-    <div class="mark">Blue Springs <em>Ledger</em></div>
+    <div class="mark">Cleaning Co. <em>Planner</em></div>
     <div class="tabs" role="tablist" aria-label="Sections">
       <button class="tab" role="tab" id="t-over" aria-controls="s-over" aria-selected="true">Overview</button>
       <button class="tab" role="tab" id="t-markup" aria-controls="s-markup" aria-selected="false">Markup</button>
@@ -423,6 +423,7 @@
       <button class="tab" role="tab" id="t-res" aria-controls="s-res" aria-selected="false">Residential</button>
       <button class="tab" role="tab" id="t-comm" aria-controls="s-comm" aria-selected="false">Commercial</button>
       <button class="tab" role="tab" id="t-edge" aria-controls="s-edge" aria-selected="false">Edge</button>
+      <button class="tab" role="tab" id="t-tech" aria-controls="s-tech" aria-selected="false">Tech</button>
     </div>
   </div>
 </div>
@@ -1125,6 +1126,102 @@
   </div>
 </section>
 
+<section class="screen wrap" id="s-tech" role="tabpanel" aria-labelledby="t-tech" hidden>
+  <div class="stitle"><span class="sletter">F</span><h2>What we build instead of hire</h2></div>
+  <p class="lede">A cleaning startup normally rents its software and hires its office. We can build most of it and run it for close to nothing &mdash; which means the seats the plan needs stay empty far longer than they otherwise would.</p>
+
+  <div class="stack">
+
+    <div class="card lead">
+      <span class="kicker gr">The headline</span>
+      <p style="font-family:Newsreader,Georgia,serif; font-size:clamp(19px,3.6vw,25px); line-height:1.3; font-weight:500; margin-bottom:12px;">Roughly $2,100 a month of overhead we simply do not pay.</p>
+      <p>About $290 of that is software we build instead of rent. The other ~$1,850 is <b>office roles the plan genuinely needs and we can leave unfilled</b> &mdash; the weekday dispatcher, the scheduler, the person who checks the work. That is around <b>$25,000 in the first year</b>.</p>
+      <p>Put in the currency of this document: overhead is paid out of what is left after cleaner pay, so $2,100/mo of it is worth about <b>18 recurring customers you do not have to sell just to stand still.</b></p>
+    </div>
+
+    <div class="hgrid three">
+      <div class="hcell alt">
+        <span class="hk">Not spent, monthly</span>
+        <span class="hv">~$2,100</span>
+        <p class="hn">Software plus the unfilled office seats.</p>
+      </div>
+      <div class="hcell">
+        <span class="hk">What we do pay</span>
+        <span class="hv">~$65</span>
+        <p class="hn">Host, domain, phone line, payroll service. Fixed &mdash; it does not grow with customers.</p>
+      </div>
+      <div class="hcell">
+        <span class="hk">Worth, in customers</span>
+        <span class="hv">~18</span>
+        <p class="hn">Recurring customers we do not need just to cover overhead.</p>
+      </div>
+    </div>
+
+    <div>
+      <h3>Rented vs built &mdash; where the money goes</h3>
+      <p class="scrollhint">Swipe the table sideways &rarr;</p>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>What it is</th><th class="num">Normally</th><th class="num">Us</th><th>Note</th></tr></thead>
+          <tbody>
+            <tr><td class="lbl">Scheduling &amp; customer system</td><td class="num">~$150/mo</td><td class="num good">$0</td><td class="lbl">built, not rented</td></tr>
+            <tr><td class="lbl">Route planning</td><td class="num">~$40/mo</td><td class="num good">$0</td><td class="lbl">free solver, no licence</td></tr>
+            <tr><td class="lbl">Quality &amp; checklist app</td><td class="num">~$50/mo</td><td class="num good">$0</td><td class="lbl">built on a phone page</td></tr>
+            <tr><td class="lbl">Website &amp; booking</td><td class="num">~$50/mo</td><td class="num good">~$1/mo</td><td class="lbl">domain only</td></tr>
+            <tr><td class="lbl">Phone answering service</td><td class="num">~$250/mo</td><td class="num good">$0</td><td class="lbl">text-first, then our own agent</td></tr>
+            <tr><td class="lbl">Office admin / dispatcher</td><td class="num">~$1,600/mo</td><td class="num good">$0</td><td class="lbl">part-time seat, left unfilled</td></tr>
+            <tr><td class="lbl">Always-on computer</td><td class="num">&mdash;</td><td class="num">~$5/mo</td><td class="lbl">ours to run</td></tr>
+            <tr><td class="lbl">Payroll service</td><td class="num">~$60/mo</td><td class="num">~$60/mo</td><td class="lbl"><b>we buy this too</b></td></tr>
+            <tr><td class="lbl">Card processing</td><td class="num">~2.9%</td><td class="num">~2.9%</td><td class="lbl"><b>we buy this too</b></td></tr>
+            <tr class="total"><td class="lbl">Difference</td><td class="num">&mdash;</td><td class="num good">~$2,100/mo</td><td class="lbl">~$25,000/yr</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="fnote">Every figure here is an <b>estimate</b> and should be re-priced before anything depends on it. The shape is what matters, not the decimals: our fixed costs stay flat as customers grow, and the only two lines that scale with the business are the two we deliberately buy.</p>
+    </div>
+
+    <div>
+      <h3>Which roles the tech actually fills</h3>
+      <p class="scrollhint">Swipe the table sideways &rarr;</p>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Traditional role</th><th>What replaces it</th><th>When we hire anyway</th></tr></thead>
+          <tbody>
+            <tr><td class="lbl">Scheduler</td><td class="lbl">One customer list that knows every address, frequency and assigned cleaner</td><td class="lbl">past ~150 customers</td></tr>
+            <tr><td class="lbl">Route planner</td><td class="lbl">A solver that builds the week's driving around real drive times</td><td class="lbl">probably never</td></tr>
+            <tr><td class="lbl">Dispatcher / receptionist</td><td class="lbl">Text-first contact now; our own phone agent once the line rings enough</td><td class="lbl">when calls get complicated</td></tr>
+            <tr><td class="lbl">Quality manager</td><td class="lbl">Checklist and before/after photos from the cleaner's own phone</td><td class="lbl">past ~10 cleaners</td></tr>
+            <tr><td class="lbl">Estimator</td><td class="lbl">The commercial bid calculator on the previous screen</td><td class="lbl">probably never</td></tr>
+            <tr><td class="lbl">Bookkeeper</td><td class="num bad">Not replaced</td><td class="lbl">buy it &mdash; always</td></tr>
+            <tr><td class="lbl">Payroll clerk</td><td class="num bad">Not replaced</td><td class="lbl">buy it &mdash; always</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="fnote">The two "not replaced" rows are the honest part. Payroll filings and the books are where a mistake costs penalties rather than an awkward phone call, and the rules change every year. Building those ourselves would be a liability, not a saving.</p>
+    </div>
+
+    <div class="callout bad">
+      <span class="kicker">What this does <em>not</em> do</span>
+      <p><b>It does not reduce cleaners.</b> Cleaning is the product and their pay is 40% of revenue by design &mdash; that is the plan working, not a cost to engineer away. Every dollar above comes out of <em>office</em> overhead.</p>
+      <p>It also is not free in the true sense. It costs build time, and it is maintained by one person. Everything on the list above is deliberately built to keep running on its own if that person is unavailable &mdash; but new features would wait.</p>
+    </div>
+
+    <div class="card">
+      <h3 style="margin-top:0;">Why we can do this and a franchise cannot</h3>
+      <p>Not because the software is clever. Because of what it is allowed to optimise for.</p>
+      <p>Rented scheduling software packs the day for maximum jobs per hour, so the time slot decides who shows up and the customer gets whoever is free. Ours can be told the opposite: <b>keep the same cleaner on the same customer, and build the route around that.</b> That is a one-line difference in what the software is solving for, and it is the entire promise on the previous screen (A.6).</p>
+      <p>It also means we can <em>measure</em> it &mdash; what share of visits were served by the assigned cleaner &mdash; and publish the number. No competitor in this market can make that claim without rebuilding how they route and how they staff. <b>Software is how the promise stops being marketing and becomes something we can prove.</b></p>
+    </div>
+
+    <div class="callout">
+      <span class="kicker">The order it gets built</span>
+      <p>Nothing here is built yet, and none of it should be built before it is needed &mdash; at three customers a spreadsheet and a group text genuinely beat any of it.</p>
+      <p><b>1.</b> The customer and visit list, before customer 15. <b>2.</b> The cleaner's phone checklist, before cleaner 4. <b>3.</b> The same-cleaner number, which falls out of the first two. <b>4.</b> Route planning, around customer 40. <b>5.</b> Quotes, when commercial gets real. <b>6.</b> The phone agent, when the phone actually rings.</p>
+    </div>
+
+  </div>
+</section>
+
 </main>
 
 
@@ -1172,7 +1269,7 @@
   "use strict";
 
   /* ---------------- tabs ---------------- */
-  var TABS = ["over","markup","numbers","res","comm","edge"];
+  var TABS = ["over","markup","numbers","res","comm","edge","tech"];
   function show(name) {
     TABS.forEach(function (t) {
       var btn = document.getElementById("t-" + t);
@@ -1544,7 +1641,7 @@
 (function () {
   "use strict";
   var KEY = "bsl-notes";
-  var TABS = { over:"Overview", markup:"Markup", numbers:"Numbers", res:"Residential", comm:"Commercial", edge:"Edge" };
+  var TABS = { over:"Overview", markup:"Markup", numbers:"Numbers", res:"Residential", comm:"Commercial", edge:"Edge", tech:"Tech" };
   var notes = [];
   var kind = "note";
 
@@ -1645,7 +1742,7 @@
   }
 
   function asText() {
-    var out = "Notes on the Blue Springs Ledger - " + new Date().toLocaleDateString() + "\n\n";
+    var out = "Notes on the Cleaning Co. Planner - " + new Date().toLocaleDateString() + "\n\n";
     notes.slice().reverse().forEach(function (n) {
       out += "[" + (n.tab || "General") + (n.kind === "prompt" ? " - TO RUN" : "") + "] " + n.text + "\n\n";
     });
